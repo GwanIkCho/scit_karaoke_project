@@ -1,0 +1,46 @@
+server:
+  port: 10000
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://13.209.14.76:3306/scit46?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: scit46
+    password: 1234
+    hikari:
+      maximum-pool-size: 10
+
+  thymeleaf:
+    cache: false
+#  sql:
+#    init:
+#      mode: always
+#      schema-locations: classpath:schema.sql
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+  show-sql: true
+  security:
+    oauth2:
+      client:
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
+        registration:
+          kakao:
+            client-id: 45a0345be6669153141ec62b34aa0809
+            client-secret:  5Da5B4O5Wi7JvzQf4erDdBNx8b1ovngI
+            client-authentication-method: client_secret_post
+            redirect-uri: http://localhost:10000/login/oauth2/code/kakao
+            authorization-grant-type: authorization_code
+            client-name: kakao
+            scope:
+              - profile_nickname
+              - account_email

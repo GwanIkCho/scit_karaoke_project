@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>joinDetail</title>
+</head>
+<body>
+<h1>회원가입</h1>
+<form th:action="@{/joindetail}" method="post">
+    <!-- 카카오 ID는 사용자에게 굳이 안 보여줘도 됨 -->
+
+    <label>닉네임</label><br/>
+    <input type="text" name="nickname" th:value="${nickname}" readonly="readonly"/><br/><br/>
+
+    <label>이메일</label><br/>
+    <input type="text" name="email" th:value="${email}" readonly="readonly"/><br/><br/>
+
+    <button type="submit">가입하기</button>
+</form>
+</body>
+</html>
