@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,6 +27,9 @@ public class UserEntity {
     private String userEmail;
     @Column(name="kakao_number")
     private String kakaoNumber;
+
+    @OneToMany(mappedBy = "user")
+    private List<PlayListEntity> playLists;  // 플레이리스트와의 관계 설정
 
     public static UserEntity toEntity(UserDTO userDTO) {
         return UserEntity.builder()
