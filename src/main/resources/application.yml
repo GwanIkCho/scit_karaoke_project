@@ -18,11 +18,14 @@ spring:
 #      schema-locations: classpath:schema.sql
   jpa:
     hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
+    show-sql: true
   show-sql: true
   security:
     oauth2:
@@ -44,3 +47,22 @@ spring:
             scope:
               - profile_nickname
               - account_email
+logging:
+  level:
+    org:
+      springframework:
+        orm:
+          jpa:
+            DEBUG
+        transaction:
+          interceptor:
+            TRACE
+      hibernate:
+        sql :
+          debug
+        type:
+          descriptor:
+            sql:
+              BasicBinder:
+                trace
+
