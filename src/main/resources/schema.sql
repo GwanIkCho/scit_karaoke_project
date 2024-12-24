@@ -46,7 +46,7 @@ CREATE TABLE if not exists tbl_reply(
 
 CREATE TABLE if not exists tbl_PlayList(
     id bigint auto_increment primary key,
-    playList_name varchar(255) not null,
+    playList_name varchar(255) not null default '좋아요 플레이리스트',
     user_id bigint not null,
     title varchar(255),
     status int not null default 1,
@@ -135,8 +135,14 @@ VALUES
 
 
 
+use scit46;
+
+ALTER TABLE tbl_PlayList
+    MODIFY playList_name varchar(255) not null default '좋아요 플레이리스트';
 
 
+ALTER TABLE tbl_PlayList
+    DROP COLUMN title;
 
 
 
