@@ -3,9 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <title>PlayList 전체목록</title>
+    <link rel="stylesheet" th:href="@{/css/playList/all.css}" />
+    <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/js/playList/all.js}"></script>
+
 </head>
+
 <body>
 <h1>PlayList 전체목록</h1>
 
+<input type="button" value="노래 등록하기" id="add-btn">
+<hr>
+<table>
+    <tr>
+        <td>playList 이름</td>
+        <td>만든날</td>
+        <td>수정</td>
+        <td>삭제</td>
+    </tr>
+</table>
+<table id="table-add">
+</table>
+
+<div id="admin-user-modal" class="hidden">
+    <h4 class="admin-user-modal-title">플레이 리스트의 이름을 정해주세요!</h4>
+    <div>
+        <div>
+            <input
+                    class="admin-user-modal-text"
+                    id="modal-text"
+            >
+        </div>
+    </div>
+    <div class="admin-user-modal-button">
+        <div class="admin-user-modal-left">
+            <button
+                    class="admin-user-modal-left-button"
+                    id="modalCloseButton"
+            >
+                취소
+            </button>
+        </div>
+        <div class="admin-user-modal-right">
+            <button
+                    class="admin-user-modal-right-button"
+                    id="modalApplyButton"
+            >
+                만들기
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="admin-user-modal-add" class="hidden">
+    <h4 class="admin-user-modal-title">플레이 리스트의 이름을 정해주세요!</h4>
+    <div>
+        <div>
+            <input
+                    class="admin-user-modal-text"
+                    id="modal-text-add"
+            >
+        </div>
+    </div>
+    <div class="admin-user-modal-button">
+        <div class="admin-user-modal-left">
+            <button
+                    class="admin-user-modal-left-button"
+                    id="modalCloseButton-add"
+            >
+                취소
+            </button>
+        </div>
+        <div class="admin-user-modal-right">
+            <button
+                    class="admin-user-modal-right-button"
+                    id="modalApplyButton-add"
+            >
+                만들기
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
 </body>
 </html>
+

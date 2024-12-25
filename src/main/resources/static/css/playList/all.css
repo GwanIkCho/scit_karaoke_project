@@ -1,0 +1,211 @@
+#admin-user-modal{
+    height: auto;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    --tw-shadow: 0px 2px 8px rgba(0, 0, 0, .08);
+    --tw-shadow-colored: 0px 2px 8px var(--tw-shadow-color);
+    padding: 32px;
+    border-width: 1px;
+    border-radius: 6px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    --tw-translate-x: -50%;
+    min-width: 360px;
+    display: flex;
+    box-sizing: border-box;
+    z-index: 50;
+    position: fixed;
+    border-color: #e6e6e7;
+    background-color: #fff;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-height: 100px;
+    resize: vertical;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.admin-user-modal-text-message{
+    width: 300px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #333334;
+    fill: #333334;
+    background-color: #f3f3f4;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-radius: 6px;
+    align-items: center;
+    margin-bottom: 8px;
+    border: none;
+    outline: none;
+    max-height: 500px;
+    height: 100px;
+    overflow: auto;
+    resize: none;
+
+}
+
+.admin-user-modal-text{
+    width: 300px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #333334;
+    fill: #333334;
+    background-color: #f3f3f4;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-radius: 6px;
+    align-items: center;
+    margin-bottom: 8px;
+    border: none;
+    outline: none;
+    max-height: 500px;
+    resize: none;
+    overflow: auto;
+}
+
+.admin-user-modal-title{
+
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 28px;
+    color: #1d1d1e;
+    fill: #1d1d1e;
+    margin: 0;
+    margin-bottom: 12px;
+}
+
+
+
+.admin-user-modal-button{
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    display: flex;
+    margin-top: 24px;
+}
+
+.admin-user-modal-left{
+    flex: 1 1 0%;
+}
+
+.admin-user-modal-left-button{
+
+    border-radius: 6px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    position: relative;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    color: #878D91;
+    fill: #878D91;
+    -webkit-appearance: button;
+    background-image: none;
+    cursor: pointer;
+    text-transform: none;
+    font-family: inherit;
+    margin: 0;
+    padding: 0;
+    padding-left: 16px;
+    padding-right: 16px;
+    background-color: #E1E1E1;
+    border-width: 1px;
+}
+
+.admin-user-modal-right{
+    flex: 1 1 0%;
+    margin-left: 16px;
+}
+
+.admin-user-modal-right-button{
+    padding-left: 16px;
+    padding-right: 16px;
+    border-radius: 6px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    position: relative;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    color: #fff;
+    fill: #fff;
+    background-color: #CE201B;
+    -webkit-appearance: button;
+    background-image: none;
+    cursor: pointer;
+    text-transform: none;
+    font-family: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+
+#admin-user-modal-add{
+    height: auto;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    --tw-shadow: 0px 2px 8px rgba(0, 0, 0, .08);
+    --tw-shadow-colored: 0px 2px 8px var(--tw-shadow-color);
+    padding: 32px;
+    border-width: 1px;
+    border-radius: 6px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    --tw-translate-x: -50%;
+    min-width: 360px;
+    display: flex;
+    box-sizing: border-box;
+    z-index: 50;
+    position: fixed;
+    border-color: #e6e6e7;
+    background-color: #fff;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-height: 100px;
+    resize: vertical;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+#admin-user-modal-add.hidden{
+    display: none;
+}
+
+
+#admin-user-modal.hidden{
+    display: none;
+}
+
+
+
+#admin-user-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);  /* 어두운 배경색 지정 */
+    z-index: 35; /* 모달보다 뒤에 위치하도록 설정 */
+
+}
+
+#admin-user-modal-backdrop.hidden{
+    display: none;
+}

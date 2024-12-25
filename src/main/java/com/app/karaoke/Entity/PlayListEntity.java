@@ -2,11 +2,10 @@ package com.app.karaoke.Entity;
 
 import com.app.karaoke.DTO.PlayListDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 @NoArgsConstructor
@@ -24,7 +23,7 @@ public class PlayListEntity {
     private String playListName = "좋아요 플레이리스트";
 
     @Column(name = "user_id", nullable = false)
-    private Long userId;  // 직접 삽입할 user_id
+    private Long userId;  // 외래키 필드
 
     @Column(name = "status")
     private int status;
@@ -35,18 +34,29 @@ public class PlayListEntity {
     @Column(name = "update_time")
     private LocalDateTime updateTime;
 
-    // UserEntity는 조회용으로만 사용
+    // 플레이리스트와 곡 연결 (양방향 매핑)
+    @OneToMany(mappedBy = "playlist", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude  // 무한 루프 방지
+    private List<PlayListSongEntity> playListSongs;
+
+    // 사용자 엔티티와의 관계 (읽기 전용)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", insertable = false, updatable = false)  // 읽기 전용
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)  // 읽기 전용 설정
+    @ToString.Exclude
     private UserEntity user;
 
+    // DTO -> Entity 변환 메서드
     public static PlayListEntity playlisttoEntity(PlayListDTO playListDTO) {
+        LocalDateTime now = LocalDateTime.now();
         return PlayListEntity.builder()
                 .id(playListDTO.getId())
                 .playListName(
                         playListDTO.getPlayListName() != null ? playListDTO.getPlayListName() : "좋아요 플레이리스트"
                 )
                 .userId(playListDTO.getUserId())
+                .status(1)
+                .createTime(now)
+                .updateTime(now)
                 .build();
     }
 }
