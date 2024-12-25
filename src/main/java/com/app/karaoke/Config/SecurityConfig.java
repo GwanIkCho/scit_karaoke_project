@@ -32,7 +32,8 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
+//       마지막에 csrf저거 없애고 각각의 api추가해줘야합니다
+        http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll()).csrf(csrf -> csrf.disable()) ;
         http.oauth2Login(oauth2 -> oauth2
                 .loginPage("/login")
                 .successHandler(successHandler())

@@ -28,7 +28,8 @@ public class PlayListDTO {
         return PlayListDTO.builder()
                 .id(playListEntity.getId())
                 .userId(playListEntity.getUserId())
-                .playListName(playListEntity.getPlayListName())  // Entity의 필드를 DTO로 매핑
+                .playListName(playListEntity.getPlayListName())
+                .createTime(playListEntity.getCreateTime())// Entity의 필드를 DTO로 매핑
                 .build();
     }
 
