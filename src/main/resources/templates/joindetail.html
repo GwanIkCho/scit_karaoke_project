@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>joinDetail</title>
+    <link rel="stylesheet" th:href="@{/css/login/joindetail.css}" />
 </head>
 <body>
 <h1>회원가입</h1>
@@ -15,7 +16,110 @@
     <label>이메일</label><br/>
     <input type="text" name="email" th:value="${email}" readonly="readonly"/><br/><br/>
 
-    <button type="submit">가입하기</button>
+    <div class="agreement-container">
+        <p>
+            <span>약관동의</span>
+        </p>
+        <!-- [필수]만 14세 이상입니다. -->
+        <div class="agreement-content">
+            <div class="agreement-divison-content">
+                <div class="agreement-divison">
+                    <input class="agreement-button essential" id="agreement-age" tabindex="4" required="" type="checkbox" value="true" data-gtm-form-interact-field-id="0">
+                    <label class="agreement-text" for="agreement-age">
+                        [필수] 만 14세 이상입니다.
+                    </label>
+                </div>
+            </div>
+            
+        </div>
+        <!-- [필수]이용약관 -->
+        <div class="agreement-content">
+            <div class="agreement-divison-content">
+                <div class="agreement-divison">
+                    <input class="agreement-button essential" id="agreement-check" tabindex="4" required="" type="checkbox" value="true" data-gtm-form-interact-field-id="1">
+                    <label class="agreement-text" for="agreement-check">
+                        <span>[필수] 이용약관</span>
+                    </label>
+                    <div class="agreement-add-text">
+                        <a class="agreement-add-link" th:href="@{/terms/service-terms-web}">
+                            <span>보기</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <!-- [필수]개인정보 수집·이용 동의서 -->
+        <div class="agreement-content">
+            <div class="agreement-divison-content">
+                <div class="agreement-divison">
+                    <input class="agreement-button essential" id="agreement-user" tabindex="4" required="" type="checkbox" value="true" data-gtm-form-interact-field-id="2">
+                    <label class="agreement-text" for="agreement-user">
+                        <span>[필수] 개인정보 수집·이용 동의서</span>
+                    </label>
+                    <div class="agreement-add-text">
+                        <a class="agreement-add-link" th:href="@{/terms/information-web}" >
+                            <span>보기</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <!-- [필수]마케팅 정보 수신동의 -->
+        <div class="agreement-content">
+            <div class="agreement-divison-content">
+                <div class="agreement-divison">
+                    <input class="agreement-button" id="choice-agreement-send" tabindex="4" type="checkbox" value="true" data-gtm-form-interact-field-id="3">
+                    <label class="agreement-text" for="choice-agreement-send">
+                        <span>[필수] 마케팅 정보 수신동의</span>
+                    </label>
+                    <div class="agreement-add-text">
+                        <a class="agreement-add-link" th:href="@{/terms/marketing-terms-web}">
+                            <span>보기</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- [필수]개인정보 수집·이용 동의서 -->
+        <div class="agreement-content">
+            <div class="agreement-divison-content">
+                <div class="agreement-divison">
+                    <input class="agreement-button" id="choice-agreement-user" tabindex="4" type="checkbox" value="true" data-gtm-form-interact-field-id="4">
+                    <label class="agreement-text" for="choice-agreement-user">
+                        <span>[필수] 개인정보 수집·이용 동의서</span>
+                    </label>
+                    <div class="agreement-add-text">
+                        <a class="agreement-add-link" th:href="@{/terms/privacyprovision-web}">
+                            <span>보기</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" disabled>가입하기</button>
 </form>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const checkboxes = document.querySelectorAll(".agreement-button"); // 모든 체크박스 선택
+        const submitButton = document.querySelector("button[type='submit']");
+
+        function toggleSubmitButton() {
+            // 모든 체크박스가 체크되었는지 확인
+            const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+            submitButton.disabled = !allChecked;
+        }
+
+        // 체크박스 상태 변경 시 버튼 활성화 여부 확인
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener("change", toggleSubmitButton);
+        });
+    });
+</script>
+
+<script th:src="@{/js/login/joindetail.js}"></script>
 </html>

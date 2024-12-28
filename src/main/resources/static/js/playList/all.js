@@ -14,8 +14,9 @@ $(function () {
                         let userId = item['userId'];
                         let playListName = item['playListName'];
                         let createTime = item['createTime'];
+                        let isLiked = item['liked'];
 
-                        output(playListName, createTime,id,userId);
+                        output(playListName, createTime,id,userId, isLiked);
                     });
                 } else {
                     let tag = `<div>내용이 없습니다</div>`; // 잘못 닫힌 div 수정
@@ -26,12 +27,17 @@ $(function () {
 
     }
 
-    function output(playListName, createTime,id,userId) {
-        let url = `/playList/detail?id=${id}`;
-        let tag = `
+    function output(playListName, createTime,id,userId, isLiked) {
+        console.log(isLiked)
+        if(isLiked === true){
+            let url = `/playList/detail?id=${id}`;
+            let tag = `
                     <tr class="${id}">
                         <td><a href="${url}">$${playListName}</a></td>
                         <td>${createTime}</td>
+                        <td>
+                            <input type="button" class="like-check" data-seq="${id}" value="좋아요 누른상태!!">
+                        </td>
                         <td>
                             <input type="button" class="delete" data-seq="${id}" value="삭제!">
                         </td>
@@ -40,7 +46,28 @@ $(function () {
                         </td>
                     </tr>
                     `;
-        $('#table-add').append(tag);
+            $('#table-add').append(tag);
+
+        } else{
+            let url = `/playList/detail?id=${id}`;
+            let tag = `
+                    <tr class="${id}">
+                        <td><a href="${url}">$${playListName}</a></td>
+                        <td>${createTime}</td>
+                        <td>
+                            <input type="button" class="like-check" data-seq="${id}" value="좋아요 안누름!">
+                        </td>
+                        <td>
+                            <input type="button" class="delete" data-seq="${id}" value="삭제!">
+                        </td>
+                        <td>
+                            <input type="button" class="namech" data-seq="${id}" data-name="${playListName}" value="플레이리스트 이름수정!">
+                        </td>
+                    </tr>
+                    `;
+            $('#table-add').append(tag);
+        }
+
 
 // 삭제 버튼 클릭 시
         $(".delete").on("click", function() {
@@ -89,10 +116,24 @@ $(function () {
             });
         });
 
+        $(".like-check").off("click").on("click", function() {
+            let seq = $(this).attr('data-seq');
+            let sendData = { "id": seq };
+
+            $.ajax({
+                url: '/playList/likeCheck',
+                method: 'GET',
+                data: sendData,
+                success: () => {
+                    init();  // 성공 시 테이블 리로드
+                }
+            });
+        });
+
     }
 
     $("#modalCloseButton-add").on("click", () => {
-        $("#admin-user-modal")[0].classList.add("hidden");
+        $("#admin-user-modal-add")[0].classList.add("hidden");
     });
 
 

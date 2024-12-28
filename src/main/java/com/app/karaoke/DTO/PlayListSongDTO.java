@@ -49,7 +49,7 @@ public class PlayListSongDTO {
         this.singer = song.getSinger();
     }
 
-    public static PlayListSongDTO toEntity(PlayListSongEntity playListSongEntity) {
+    public static PlayListSongDTO toDTO(PlayListSongEntity playListSongEntity) {
         return PlayListSongDTO.builder()
                 .id(playListSongEntity.getId())
                 .playListId(playListSongEntity.getPlayListId())
