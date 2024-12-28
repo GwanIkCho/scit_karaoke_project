@@ -36,10 +36,6 @@ public class MainContoller {
 		return "login";
 	}
 
-	@GetMapping("/join")
-	public String join() {
-		return "join";
-	}
 
 	@GetMapping("/joindetail")
 	public String joinDetailPage(HttpServletRequest request, Model model) {

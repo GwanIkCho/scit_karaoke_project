@@ -68,7 +68,7 @@ $(function () {
             let sendData = { "id": seq };
 
             $.ajax({
-                url: '/playList/delete',
+                url: '/playList/delete/song',
                 method: 'GET',
                 data: sendData,  // JSON.stringify 제거
                 success: () => {

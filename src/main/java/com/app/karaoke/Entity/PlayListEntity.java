@@ -34,6 +34,9 @@ public class PlayListEntity {
     @Column(name = "update_time")
     private LocalDateTime updateTime;
 
+    @OneToMany(mappedBy = "playlist")
+    private List<PlayListLikeEntity> playListLikes;  // 플레이리스트와의 관계 설정
+
     // 플레이리스트와 곡 연결 (양방향 매핑)
     @OneToMany(mappedBy = "playlist", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude  // 무한 루프 방지

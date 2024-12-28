@@ -1,6 +1,8 @@
 package com.app.karaoke.Controller;
 
 import com.app.karaoke.DTO.PlayListDTO;
+import com.app.karaoke.Repository.PlayListLikeRepository;
+import com.app.karaoke.Service.PlayListLikeService;
 import com.app.karaoke.Service.PlayListService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -20,12 +22,16 @@ public class PlayListAPI {
     @Autowired
     private PlayListService playListService;
 
+    @Autowired
+    private PlayListLikeService playListLikeService;
+
     @GetMapping("/selectAll")
     public List<PlayListDTO> selectAll(HttpServletRequest request) {
         HttpSession session = request.getSession(false); // 세션 가져오기
 
         Long loginUserId = (Long) session.getAttribute("loginUserId");
         List<PlayListDTO> list = playListService.findByUserId(loginUserId);
+        log.info(list.toString());
         return  list;
     }
 
@@ -50,6 +56,20 @@ public class PlayListAPI {
         playListService.changname(playListDTO);
     }
 
+
+    @GetMapping("/likeCheck")
+    public ResponseEntity<String> likeCheck(@RequestParam(name = "id") Long playListId, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);  // 세션 가져오기
+        if (session == null || session.getAttribute("loginUserId") == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+        }
+
+        Long userId = (Long) session.getAttribute("loginUserId");  // 세션에서 유저 ID 가져오기
+
+        playListLikeService.like(userId, playListId);  // 좋아요 토글 메서드 호출
+
+        return ResponseEntity.ok("좋아요 상태가 변경되었습니다.");
+    }
 
 
 }
