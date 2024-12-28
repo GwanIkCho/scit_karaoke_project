@@ -1,7 +1,10 @@
 package com.app.karaoke.DTO;
 
 import com.app.karaoke.Entity.PlayListEntity;
+import com.app.karaoke.Entity.PlayListLikeEntity;
+import com.app.karaoke.Entity.SongEntity;
 import com.app.karaoke.Entity.UserEntity;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +26,20 @@ public class PlayListDTO {
     private int status;  // 상태값
     private LocalDateTime createTime;  // 생성 시간
     private LocalDateTime updateTime;  // 업데이트 시간
+
+
+    private PlayListLikeEntity playListLike;  // null 가능
+    private boolean isLiked;
+
+    public PlayListDTO(Long id, String playListName, Long userId, int status, LocalDateTime createTime, LocalDateTime updateTime, boolean isLiked) {
+        this.id = id;
+        this.playListName = playListName;
+        this.userId = userId;
+        this.status = status;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+        this.isLiked = isLiked;
+    }
 
     public static PlayListDTO playlisttoDTO(PlayListEntity playListEntity) {
         return PlayListDTO.builder()

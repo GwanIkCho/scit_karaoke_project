@@ -23,12 +23,9 @@ public class PlayListService {
 
 
     public List<PlayListDTO> findByUserId(Long userId) {
-        List<PlayListEntity> list = playListRepository.findByUserId(userId);
-
-        // status가 1인 것만 필터링
-        return list.stream()
-                .filter(playlist -> playlist.getStatus() == 1)
-                .map(PlayListDTO::playlisttoDTO)
+        return playListRepository.findByUserIdWithLikes(userId)
+                .stream()
+                .filter(dto -> dto.getStatus() == 1) // 상태가 1인 것만 필터링
                 .collect(Collectors.toList());
     }
 

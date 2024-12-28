@@ -31,6 +31,9 @@ public class UserEntity {
     @OneToMany(mappedBy = "user")
     private List<PlayListEntity> playLists;  // 플레이리스트와의 관계 설정
 
+    @OneToMany(mappedBy = "user")
+    private List<PlayListLikeEntity> playListLikes;  // 플레이리스트와의 관계 설정
+
     public static UserEntity toEntity(UserDTO userDTO) {
         return UserEntity.builder()
                 .id(userDTO.getId())

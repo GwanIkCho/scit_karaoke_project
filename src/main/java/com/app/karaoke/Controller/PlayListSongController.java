@@ -1,5 +1,6 @@
 package com.app.karaoke.Controller;
 
+import com.app.karaoke.DTO.PlayListDTO;
 import com.app.karaoke.DTO.PlayListSongDTO;
 import com.app.karaoke.Entity.PlayListSongEntity;
 import com.app.karaoke.Service.PlayListSongService;
@@ -23,7 +24,9 @@ public class PlayListSongController {
 
     @GetMapping("/detail")
     public String write(@RequestParam("id") Long id, Model model) {
-        model.addAttribute("id", id);
+        PlayListDTO playListDTO =  playListSongService.selectById(id);
+        log.info(playListDTO.toString());
+        model.addAttribute("playListDTO", playListDTO);
         return "/playList/detail";
     }
 

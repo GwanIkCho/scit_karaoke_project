@@ -4,6 +4,7 @@ import com.app.karaoke.DTO.PlayListSongDTO;
 import com.app.karaoke.Service.PlayListSongService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,12 @@ public class PlayListSongAPI {
     public List<PlayListSongDTO> getPlayListSongs(@RequestParam("id") Long id) {
         log.info(playListSongService.selectAll(id).toString());
         return playListSongService.selectAll(id);
+    }
+
+    @GetMapping("/delete/song")
+    public ResponseEntity<String> delete(@RequestParam(name = "id") Long id) {
+        playListSongService.songsoftDelete(id);
+        return ResponseEntity.ok("Playlist status updated to 0.");
     }
 
 
