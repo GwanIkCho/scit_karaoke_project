@@ -17,4 +17,9 @@ public class PlayListController {
         return "/playList/all";
     }
 
+    @GetMapping("/search")
+    public String searsh(){
+        return "/playList/search";
+    }
+
 }

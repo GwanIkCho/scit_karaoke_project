@@ -1,9 +1,14 @@
 package com.app.karaoke.Controller;
 
+import com.app.karaoke.DTO.PagenationDTO;
 import com.app.karaoke.DTO.PlayListDTO;
+import com.app.karaoke.DTO.SongDTO;
+import com.app.karaoke.Entity.SongEntity;
 import com.app.karaoke.Repository.PlayListLikeRepository;
+import com.app.karaoke.Repository.SongRepository;
 import com.app.karaoke.Service.PlayListLikeService;
 import com.app.karaoke.Service.PlayListService;
+import com.app.karaoke.Service.SongService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +29,10 @@ public class PlayListAPI {
 
     @Autowired
     private PlayListLikeService playListLikeService;
+
+    @Autowired
+    private SongService songService;
+
 
     @GetMapping("/selectAll")
     public List<PlayListDTO> selectAll(HttpServletRequest request) {
@@ -70,6 +79,17 @@ public class PlayListAPI {
 
         return ResponseEntity.ok("좋아요 상태가 변경되었습니다.");
     }
+
+    @GetMapping("/searchAPI")
+    public PagenationDTO<SongDTO> selectAllSearch(
+            @RequestParam(name = "keyword") String keyword,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return songService.searchSongs(keyword, page, size);
+    }
+
+
 
 
 }

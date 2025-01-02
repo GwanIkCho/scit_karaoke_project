@@ -1,5 +1,7 @@
 package com.app.karaoke.Entity;
 
+import com.app.karaoke.DTO.SongDTO;
+import com.app.karaoke.DTO.UserDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -44,6 +46,16 @@ public class SongEntity {
 
     @OneToMany(mappedBy = "song")
     private List<PlayListSongEntity> playListSongs;  // 플레이리스트와의 관계 설정
+
+    public static SongEntity toEntity(SongDTO songDTO) {
+        return SongEntity.builder()
+                .id(songDTO.getId())
+                .title(songDTO.getTitle())
+                .singer(songDTO.getSinger())
+                .tjNumber(songDTO.getTjNumber())
+                .kyNumber(songDTO.getKyNumber())
+                .build();
+    }
 
 
 }

@@ -5,6 +5,7 @@ import com.app.karaoke.Entity.UserEntity;
 import com.app.karaoke.Service.OAuth2UserService;
 import com.app.karaoke.Service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -17,6 +18,7 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
+@Slf4j
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
@@ -46,15 +48,28 @@ public class SecurityConfig {
     public AuthenticationSuccessHandler successHandler() {
         return (request, response, authentication) -> {
             DefaultOAuth2User defaultOAuth2User = (DefaultOAuth2User) authentication.getPrincipal();
+            log.info(defaultOAuth2User.toString());
             Map<String, Object> attributes = defaultOAuth2User.getAttributes();
+            log.info(attributes.toString());
 
-            // 카카오 정보 추출
-            String kakaoId = attributes.get("id").toString();
-            Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
-            Map<String, Object> properties = (Map<String, Object>) attributes.get("properties");
+            String kakaoId = null;
+            String nickname = null;
+            String email = null;
 
-            String nickname = (properties != null) ? (String) properties.get("nickname") : null;
-            String email = (kakaoAccount != null) ? (String) kakaoAccount.get("email") : null;
+// 플랫폼별 정보 추출
+            if (attributes.containsKey("id")) {  // 카카오 사용자
+                kakaoId = attributes.get("id").toString();
+                Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
+                Map<String, Object> properties = (Map<String, Object>) attributes.get("properties");
+
+                nickname = (properties != null) ? (String) properties.get("nickname") : null;
+                email = (kakaoAccount != null) ? (String) kakaoAccount.get("email") : null;
+
+            } else if (attributes.containsKey("sub")) {  // 구글 사용자
+                kakaoId = attributes.get("sub").toString();
+                nickname = (String) attributes.get("name");  // 전체 이름
+                email = (String) attributes.get("email");
+            }
 
             // (1) DB에서 중복 검사
             UserEntity existingUser = userService.findByKakaoId(kakaoId);
