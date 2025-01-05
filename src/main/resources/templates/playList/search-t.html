@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>search 페이지</title>
+    <link rel="stylesheet" th:href="@{/css/playList/cearch.css}" />
+    <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/js/playList/cearch.js}"></script>
+</head>
+<body>
+
+<input type="text" id="search-input">
+<hr>
+<table id="recommendation-table">
+    <thead>
+    <tr>
+        <th>곡명</th>
+        <th>가수</th>
+        <th>KY 번호</th>
+    </tr>
+    </thead>
+    <tbody id="table-add">
+    <!-- 추천 곡이 여기에 추가됩니다. -->
+    </tbody>
+    <div id="pagination" style="margin-top: 20px;">
+        <!-- 페이지네이션 버튼이 여기에 렌더링됨 -->
+    </div>
+</table>
+</body>
+</html>
