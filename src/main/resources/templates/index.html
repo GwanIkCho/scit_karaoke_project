@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>「コインカラオケ」歌いましょう</title>
+    <!-- <script src="/js/karaoke.js" defer></script> -->
+    <script src="/js/karaoke.js" defer></script>
+
+</head>
+<style>
+    body {
+        background-image: url("/images/bg_img.png");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    element {
+        cursor: url(/images/login_img.png), auto;
+    }
+
+    .menu_image,
+    .login_img {
+        width: 40px;
+    }
+
+    .container {
+        width: 450px;
+        height: 600px;
+        background-color: white;
+        text-align: center;
+        border-radius: 30px;
+    }
+
+    .search {
+
+        width: 100%;
+        height: 24px;
+        border: none;
+    }
+
+    .search_btn {
+        width: 20px;
+        margin-left: 50px;
+        margin-top: 10px;
+    }
+
+    .containersearch {
+        position: center;
+        margin: 5px;
+        padding: 5px;
+        width: 400px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-left: 15px;
+        margin-top: 8px;
+    }
+
+    .menu_btn {
+        place-self: left;
+        width: 10px;
+        height: 10px;
+    }
+
+    .pl_btn {
+        width: 400px;
+        height: 10%;
+    }
+
+    .containertop {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 5px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        background-color: rgba(200, 200, 200, 0.8);
+        height: 50px;
+    }
+
+    .overay1 {
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    .overay2 {
+        position: absolute;
+        top: 63%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    .overay3 {
+        position: absolute;
+        top: 80%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    /* 일일 랭킹 애니메이션 */
+    .ranking-container {
+        margin-top: 15px;
+        height: 25px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .ranking-text {
+        position: absolute;
+        bottom: -250px;
+        /* 화면 바깥 시작 위치 */
+        width: 100%;
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        animation: slideUp 15s ease-in-out infinite;
+        /* 총 15초 */
+    }
+
+    .ranking-title {
+        margin-right: 350px;
+    }
+
+    @keyframes slideUp {
+        0% {
+            bottom: -250px;
+            /* 첫 번째 텍스트가 화면 밖에서 시작 */
+        }
+
+        5% {
+            bottom: 0px;
+            /* 1위 위치 */
+        }
+
+        10% {
+            bottom: 0px;
+            /* 1위가 유지되는 시간 */
+        }
+
+        15% {
+            bottom: -25px;
+            /* 2위 위치 */
+        }
+
+        20% {
+            bottom: -25px;
+            /* 2위가 유지되는 시간 */
+        }
+
+        25% {
+            bottom: -50px;
+            /* 3위 위치 */
+        }
+
+        30% {
+            bottom: -50px;
+            /* 3위가 유지되는 시간 */
+        }
+
+        35% {
+            bottom: -75px;
+            /* 4위 위치 */
+        }
+
+        40% {
+            bottom: -75px;
+            /* 4위가 유지되는 시간 */
+        }
+
+        45% {
+            bottom: -100px;
+            /* 5위 위치 */
+        }
+
+        50% {
+            bottom: -100px;
+            /* 5위가 유지되는 시간 */
+        }
+
+        55% {
+            bottom: -125px;
+            /* 6위 위치 */
+        }
+
+        60% {
+            bottom: -125px;
+            /* 6위가 유지되는 시간 */
+        }
+
+        65% {
+            bottom: -150px;
+            /* 7위 위치 */
+        }
+
+        70% {
+            bottom: -150px;
+            /* 7위가 유지되는 시간 */
+        }
+
+        75% {
+            bottom: -175px;
+            /* 8위 위치 */
+        }
+
+        80% {
+            bottom: -175px;
+            /* 8위가 유지되는 시간 */
+        }
+
+        85% {
+            bottom: -200px;
+            /* 9위 위치 */
+        }
+
+        90% {
+            bottom: -200px;
+            /* 9위가 유지되는 시간 */
+        }
+
+        95% {
+            bottom: -225px;
+            /* 10위 위치 */
+        }
+
+        100% {
+            bottom: -225px;
+            /* 10위가 유지되는 시간 */
+        }
+    }
+
+    /* 모달
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        width: 400px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        position: relative;
+    }
+
+    .modal-content h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .modal-content .close {
+        float: right;
+        width: 20px;
+        background: #e74c3c;
+        color: white;
+        font-size: 12px;
+        border: none;
+        padding: 3px 3px;
+        cursor: pointer;
+        border-radius: 4px;
+    } */
+
+    .search-results {
+        position: absolute;
+        top: 22%;
+        width: 400px;
+        background: white;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        display: none;
+        /* 기본적으로 숨김 */
+        z-index: 1000;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="containertop">
+            <!-- <a href="#"> <img src="/images/menu_icon.png" alt="메뉴 이미지" class="menu_img" name="menu_img"></a> -->
+            <a href="#">플레이리스트</a>
+            <a href="#">랭킹</a>
+            <a href="#">주변 노래방</a>
+            <a href="#">로그인</a>
+        </div>
+        <div class="containermid">
+            <div class="containersearch">
+                <input type="search" class="search" name="search" placeholder="제목, 가수명으로 검색해주세요">
+                <div class="search-results" id="searchResults"></div> <!-- 검색 결과 창 -->
+                <a th:href=""> <img src="/images/search_img.png" alt="검색하기" class="search_btn"></a>
+
+            </div>
+            <!-- <div class="containersearch">
+                <input type="search" class="search" name="search" placeholder="제목, 가수명으로 검색해주세요">
+            </div> -->
+            <div class="ranking-title">일일랭킹</div>
+            <div class="ranking-container">
+                <div class="ranking-text">
+                    <p>1위: 아이유 - 너의 의미</p>
+                    <p>2위: BTS - Dynamite</p>
+                    <p>3위: 블랙핑크 - How You Like That</p>
+                    <p>4위: 블랙핑크 - How You Like That</p>
+                    <p>5위: 블랙핑크 - How You Like That</p>
+                    <p>6위: 블랙핑크 - How You Like That</p>
+                    <p>7위: 블랙핑크 - How You Like That</p>
+                    <p>8위: 블랙핑크 - How You Like That</p>
+                    <p>9위: 블랙핑크 - How You Like That</p>
+                    <p>10위: 블랙핑크 - How You Like That</p>
+                </div>
+            </div>
+
+
+            <br><br>
+            <a th:href="">
+                <img src="/images/pl_btn.png" alt="pl_btn" class="pl_btn">
+                <div class="overay1">플레이리스트</div>
+            </a>
+            <br><br>
+            <a th:href="">
+                <img src="/images/rank_btn.jpeg" alt="rank_btn" class="pl_btn">
+                <div class="overay2">랭킹</div>
+            </a>
+            <br><br>
+            <a th:href="">
+                <img src="/images/map_btn.png" alt="map_btn" class="pl_btn">
+                <div class="overay3">주변 노래방</div>
+            </a>
+        </div> <!--containermid-->
+    </div> <!--container 끝나는지점-->
+    <!--
+    모달창
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <button class="close" id="closeModal">X</button>
+
+            <div class="containersearch">
+                <input type="search" class="search" name="search" placeholder="제목, 가수명으로 검색해주세요">
+                <a th:href=""> <img src="/images/search_img.png" alt="검색하기" class="search_btn"></a>
+            </div>
+
+            <h2>주문 영수증</h2>
+            <div class="receipt-item">
+                <span class="key">치킨 종류:</span>
+                <span id="receiptChickenType"></span>
+            </div>
+            <div class="receipt-item">
+                <span class="key">수량:</span>
+                <span id="receiptQuantity"></span>
+            </div>
+            <div class="receipt-item" id="add-more">
+                <span class="key">추가 메뉴:</span>
+                <div id="receiptExtras" class="indented"></div>
+            </div>
+            <div class="receipt-item">
+                <span class="key">배달 방식:</span>
+                <div id="receiptDelivery" class="indented"></div>
+            </div>
+            <div class="total-price" id="totalPriceDisplay"></div>
+        </div>
+    </div>
+-->
+
+</body>
+
+</html>

@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プレイリスト
+    </title>
+    <script src="/js/karaoke.js" defer></script>
+
+</head>
+<style>
+    body {
+        background-image: url("/images/bg_img.png");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        /*커서 돌려도 배경안움직임*/
+        height: 100vh;
+        /*수직높이를 줘야함*/
+        display: flex;
+        /*flex박스 생성*/
+        justify-content: center;
+        /*플랙스 박스(가로는 정해져있음) 에서 가운데 정렬*/
+        align-items: center;
+        /*세로크기가 정해져있으니 거기 가운데로 설정한다*/
+        gap: 40px;
+        /*두 화면의 거리를 벌린다*/
+    }
+
+
+    /*왼쪽화면 CSS*/
+    .container_left {
+        width: 450px;
+        height: 600px;
+        background-color: white;
+        text-align: center;
+        border-radius: 30px;
+
+
+    }
+
+    .search_left {
+        width: 300px;
+        height: 24px;
+        border: none;
+
+    }
+
+    .search_btn_left {
+        width: 20px;
+        margin-left: 50px;
+        margin-top: 10px;
+    }
+
+    .containersearch_left {
+
+        position: center;
+        /* 그림자와 함께 배치 조정 */
+        margin: 5px;
+        /* 화면 가장자리 여백 */
+        padding: 5px;
+        /* 내부 여백 */
+        width: 400px;
+        /* 검색창 컨테이너 너비 */
+        background-color: #fff;
+        /* 컨테이너 배경색 */
+        border-radius: 10px;
+        /* 모서리를 둥글게 */
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+        /* 그림자 효과 */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-left: 10px;
+    }
+
+
+    .containertop_left {
+        /* Flexbox로 설정 */
+        justify-content: space-between;
+        /* 양쪽 끝으로 버튼 배치 */
+        align-items: center;
+        /* 수직 가운데 정렬 */
+        padding: 5px 10px;
+        /* 내부 여백 */
+    }
+
+    .containermid_left {
+        margin-top: 20px;
+
+    }
+
+
+
+    /*오른쪽 화면 CSS*/
+    .containertop {
+        display: flex;
+        /* Flexbox로 설정 */
+        justify-content: space-between;
+        /* 양쪽 끝으로 버튼 배치 */
+        align-items: center;
+        /* 수직 가운데 정렬 */
+        padding: 5px 10px;
+        /* 내부 여백 */
+        position: sticky;
+    }
+
+    .container_right {
+        width: 450px;
+        height: 600px;
+        background-color: white;
+        text-align: center;
+        border-radius: 30px;
+
+
+    }
+
+    .search {
+        width: 300px;
+        height: 24px;
+        border: none;
+
+    }
+
+    .search_btn {
+        width: 20px;
+        margin-left: 50px;
+        margin-top: 10px;
+    }
+
+    .containersearch {
+
+        position: center;
+        /* 그림자와 함께 배치 조정 */
+        margin: 5px;
+        /* 화면 가장자리 여백 */
+        padding: 5px;
+        /* 내부 여백 */
+        width: 400px;
+        /* 검색창 컨테이너 너비 */
+        background-color: #fff;
+        /* 컨테이너 배경색 */
+        border-radius: 10px;
+        /* 모서리를 둥글게 */
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+        /* 그림자 효과 */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-left: 15px;
+    }
+
+
+    .containertop_left {
+        /* Flexbox로 설정 */
+        justify-content: space-between;
+        /* 양쪽 끝으로 버튼 배치 */
+        align-items: center;
+        /* 수직 가운데 정렬 */
+        padding: 5px 10px;
+        /* 내부 여백 */
+    }
+
+    .content {
+        flex: 1;
+        overflow-y: auto;
+        /* 스크롤 활성화 */
+        padding: 20px;
+        max-height: 450px;
+        /* 컨텐츠 높이 제한 */
+        box-sizing: border-box;
+        /* 패딩 포함 */
+    }
+
+    .content::-webkit-scrollbar {
+        display: none;
+        /* 스크롤바 숨기기 */
+    }
+
+    .playlist {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .playlist-item {
+        cursor: pointer;
+
+        display: flex;
+        align-items: center;
+        padding: 10px;
+
+
+    }
+
+    .playlist-item-content {
+        flex: 1;
+        /* 남은 공간을 차지 */
+        overflow: hidden;
+    }
+
+    .playlist-item img {
+        width: 60px;
+        height: 60px;
+        margin-right: 10px;
+    }
+
+
+
+    .playlist-item-content .title {
+        font-size: 12px;
+        font-weight: bold;
+        margin: 0;
+        white-space: nowrap;
+        /* 텍스트를 한 줄로 유지 */
+        overflow: hidden;
+        /* 넘치는 텍스트를 숨김 */
+        text-overflow: ellipsis;
+        /* 숨겨진 텍스트 대신 "..." 표시 */
+
+    }
+
+    .playlist-item-content .artist {
+        font-size: 11px;
+        color: #bbbbbb;
+        white-space: nowrap;
+        /* 텍스트를 한 줄로 유지 */
+        overflow: hidden;
+        /* 넘치는 텍스트를 숨김 */
+        text-overflow: ellipsis;
+        /* 숨겨진 텍스트 대신 "..." 표시 */
+    }
+
+    .icon-btn {
+        display: flex;
+        align-items: center;
+        margin-left: 10px;
+        cursor: pointer;
+    }
+
+    .icon-btn img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .content {
+        flex: 1;
+        overflow-y: auto;
+        /* 세로 스크롤을 활성화 */
+        padding: 20px;
+        height: 480px;
+        /* 고정 높이를 지정 */
+    }
+
+    .icon-btn.like.active {
+        filter: invert(54%) sepia(96%) saturate(746%) hue-rotate(10deg) brightness(97%);
+    }
+
+    .pl-new {
+
+        position: center;
+        /* 그림자와 함께 배치 조정 */
+        margin: 5px;
+        /* 화면 가장자리 여백 */
+        padding: 5px;
+        /* 내부 여백 */
+        width: 400px;
+        height: 100px;
+        /* 검색창 컨테이너 너비 */
+        background-color: #fff;
+        /* 컨테이너 배경색 */
+        border-radius: 10px;
+        /* 모서리를 둥글게 */
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+        /* 그림자 효과 */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+    }
+
+    .search-results {
+        position: absolute;
+        top: 175px;
+        width: 400px;
+        background: white;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        display: none;
+        /* 기본적으로 숨김 */
+        z-index: 1000;
+    }
+
+    .containertop {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 5px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        background-color: rgba(200, 200, 200, 0.8);
+        height: 50px;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        width: 400px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        position: relative;
+    }
+
+
+    h3 {
+        margin: 0;
+        padding: 0 0 10px 0;
+    }
+
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        color: #333;
+    }
+
+    .playlist-list {
+        max-height: 300px;
+        /* 플레이리스트의 최대 높이 */
+        overflow-y: auto;
+        /* 스크롤 활성화 */
+        padding-right: 10px;
+        /* 스크롤을 위한 여백 추가 */
+        text-align: center;
+
+    }
+
+    .playlist-list::-webkit-scrollbar {
+        display: none;
+        /* 스크롤바 숨기기 */
+    }
+
+    .playlist-item {
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+        display: flex;
+        justify-content: center;
+        /* 가로 가운데 정렬 */
+        align-items: center;
+        /* 세로 가운데 정렬 */
+        height: 50px;
+
+    }
+
+    .playlist-item:last-child {
+        border-bottom: none;
+        /* 마지막 항목에 border 없애기 */
+    }
+</style>
+
+
+<script>
+
+    function toggleLike(element) {
+        // 'like' 클래스를 토글하여 아이콘 색상 변경
+        element.classList.toggle('active');
+    }
+
+    function addToPlaylist() {
+
+    }
+</script>
+
+<body>
+    <!-- 왼쪽 화면-->
+
+    <div class="container_left">
+        <div class="containertop">
+            <!-- <a href="#"> <img src="/images/menu_icon.png" alt="메뉴 이미지" class="menu_img" name="menu_img"></a> -->
+            <a href="#">플레이리스트</a>
+            <a href="#">랭킹</a>
+            <a href="#">주변 노래방</a>
+            <a href="#">로그아웃</a>
+        </div>
+        <div class="containermid_left">
+            <div class="containersearch">
+                <input type="search" class="search" name="search" placeholder="제목, 가수명으로 검색해주세요">
+                <div class="search-results" id="searchResults"></div> <!-- 검색 결과 창 -->
+                <a th:href=""> <img src="/images/search_img.png" alt="검색하기" class="search_btn"></a>
+
+            </div>
+
+
+        </div>
+
+        <div class="content">
+            <ul class="playlist">
+                <li class="playlist-item">
+                    <img src="/images_pl/pl_1.jpg" alt="썸네일">
+                    <div class="playlist-item-content">
+                        <p class="title">1. Creepy Nuts - Bling-Bang-Bang-Born</p>
+                        <p class="artist">Creepy Nuts • 02:48</p>
+                    </div>
+                    <div class="icon-btn like" onclick="toggleLike(this)">
+                        <img src="/images_pl/like_btn.png" alt="엄지 아이콘">
+                    </div>
+                    <div class="icon-btn add" onclick="addToPlaylist()">
+                        <img src="/images_pl/pl_btn.png" alt="플레이리스트 추가 아이콘">
+                    </div>
+                </li>
+
+                <li class="playlist-item">
+                    <img src="/images_pl/pl_2.jpg" alt="썸네일">
+                    <div class="playlist-item-content">
+                        <p class="title">2. Ariana Grande - Santa Tell Me</p>
+                        <p class="artist">Ariana Grande • 03:24</p>
+                    </div>
+                    <div class="icon-btn like" onclick="toggleLike(this)">
+                        <img src="/images_pl/like_btn.png" alt="엄지 아이콘">
+                    </div>
+                    <div class="icon-btn add" onclick="addToPlaylist()">
+                        <img src="/images_pl/pl_btn.png" alt="플레이리스트 추가 아이콘">
+                    </div>
+                </li>
+                <li class="playlist-item">
+                    <img src="/images_pl/pl_2.jpg" alt="썸네일">
+                    <div class="playlist-item-content">
+                        <p class="title">2. Ariana Grande - Santa Tell Me</p>
+                        <p class="artist">Ariana Grande • 03:24</p>
+                    </div>
+                    <div class="icon-btn like" onclick="toggleLike(this)">
+                        <img src="/images_pl/like_btn.png" alt="엄지 아이콘">
+                    </div>
+                    <div class="icon-btn add" onclick="addToPlaylist()">
+                        <img src="/images_pl/pl_btn.png" alt="플레이리스트 추가 아이콘">
+                    </div>
+                </li>
+                <li class="playlist-item">
+                    <img src="/images_pl/pl_2.jpg" alt="썸네일">
+                    <div class="playlist-item-content">
+                        <p class="title">2. Ariana Grande - Santa Tell Me</p>
+                        <p class="artist">Ariana Grande • 03:24</p>
+                    </div>
+                    <div class="icon-btn like" onclick="toggleLike(this)">
+                        <img src="/images_pl/like_btn.png" alt="엄지 아이콘">
+                    </div>
+                    <div class="icon-btn add" onclick="addToPlaylist()">
+                        <img src="/images_pl/pl_btn.png" alt="플레이리스트 추가 아이콘">
+                    </div>
+                </li>
+                <li class="playlist-item">
+                    <img src="/images_pl/pl_2.jpg" alt="썸네일">
+                    <div class="playlist-item-content">
+                        <p class="title">2. Ariana Grande - Santa Tell Me</p>
+                        <p class="artist">Ariana Grande • 03:24</p>
+                    </div>
+                    <div class="icon-btn like" onclick="toggleLike(this)">
+                        <img src="/images_pl/like_btn.png" alt="엄지 아이콘">
+                    </div>
+                    <div class="icon-btn add" onclick="addToPlaylist()">
+                        <img src="/images_pl/pl_btn.png" alt="플레이리스트 추가 아이콘">
+                    </div>
+                </li>
+                <li class="playlist-item">
+                    <img src="/images_pl/pl_2.jpg" alt="썸네일">
+                    <div class="playlist-item-content">
+                        <p class="title">2. Ariana Grande - Santa Tell Me</p>
+                        <p class="artist">Ariana Grande • 03:24</p>
+                    </div>
+                    <div class="icon-btn like" onclick="toggleLike(this)">
+                        <img src="/images_pl/like_btn.png" alt="엄지 아이콘">
+                    </div>
+                    <div class="icon-btn add" onclick="addToPlaylist()">
+                        <img src="/images_pl/pl_btn.png" alt="플레이리스트 추가 아이콘">
+                    </div>
+                </li>
+                <li class="playlist-item">
+                    <img src="/images_pl/pl_2.jpg" alt="썸네일">
+                    <div class="playlist-item-content">
+                        <p class="title">2. Ariana Grande - Santa Tell Me</p>
+                        <p class="artist">Ariana Grande • 03:24</p>
+                    </div>
+                    <div class="icon-btn like" onclick="toggleLike(this)">
+                        <img src="/images_pl/like_btn.png" alt="엄지 아이콘">
+                    </div>
+                    <div class="icon-btn add" onclick="addToPlaylist()">
+                        <img src="/images_pl/pl_btn.png" alt="플레이리스트 추가 아이콘">
+                    </div>
+                </li>
+
+
+
+            </ul>
+        </div>
+    </div>
+
+
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <h3>플레이리스트</h3>
+            <button class="close" id="closeModal">X</button>
+
+            <div class="playlist-list">
+                <!-- 각 플레이리스트 항목들 -->
+                <div class="playlist-item">태영추천곡</div>
+                <div class="playlist-item">부장님이 좋아할만한 곡</div>
+                <div class="playlist-item">SCIT 주제가</div>
+                <div class="playlist-item">담배필 때 맛이 좋아지는 플리</div>
+                <div class="playlist-item">오늘아침도 파이팅</div>
+                <div class="playlist-item">긴가민가한 곡</div>
+                <div class="playlist-item">인디밴드</div>
+                <div class="playlist-item">데일밴드</div>
+                <div class="playlist-item">QWER</div>
+                <div class="playlist-item">일소라</div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</body>
+
+</html>

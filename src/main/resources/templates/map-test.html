@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>지도</title>
+<script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=c707b434a0d431a129fcb3cce1e625b8&autoload=false"></script>
+<script>
+$(document).ready(function() {
+    // 카카오 지도 API 로드 후 실행
+    kakao.maps.load(function() {
+      var container = document.getElementById('map');
+      var options = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667),
+        level: 3
+      };
+
+      var map = new kakao.maps.Map(container, options);
+    });
+  });
+</script>
+</head>
+<body>
+	<div id="map" style="width:500px;height:400px;">지도</div>
+</body>
+</html>
