@@ -1,0 +1,351 @@
+body {
+    background-image: url("/images/bg_img.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    /*커서 돌려도 배경안움직임*/
+    height: 100vh;
+    /*수직높이를 줘야함*/
+    display: flex;
+    /*flex박스 생성*/
+    justify-content: center;
+    /*플랙스 박스(가로는 정해져있음) 에서 가운데 정렬*/
+    align-items: center;
+    /*세로크기가 정해져있으니 거기 가운데로 설정한다*/
+    gap: 40px;
+    /*두 화면의 거리를 벌린다*/
+}
+
+
+/*왼쪽화면 CSS*/
+.container {
+    width: 450px;
+    height: 600px;
+    background-color: white;
+    text-align: center;
+    border-radius: 30px;
+
+
+}
+
+.icon-btn {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.icon-btn img {
+    width: 24px;
+    height: 24px;
+}
+
+.content {
+    flex: 1;
+    overflow-y: auto;
+    /* 세로 스크롤을 활성화 */
+    /* padding: 20px; */
+    height: 600px;
+    /* 고정 높이를 지정 */
+}
+
+
+
+
+.containertop {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 5px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: rgba(200, 200, 200, 0.8);
+    height: 50px;
+}
+
+
+h3 {
+    margin: 0;
+    padding: 0 0 10px 0;
+}
+
+
+
+.playlist-list {
+    max-height: 70%;
+    /* 플레이리스트의 최대 높이 */
+    overflow-y: auto;
+    /* 스크롤 활성화 */
+    padding-right: 10px;
+    /* 스크롤을 위한 여백 추가 */
+    text-align: center;
+
+}
+
+.playlist-list::-webkit-scrollbar {
+    display: none;
+    /* 스크롤바 숨기기 */
+}
+
+.playlist-item {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    /* 가로 가운데 정렬 */
+    align-items: center;
+    /* 세로 가운데 정렬 */
+    height: 50px;
+
+}
+
+.playlist-item:last-child {
+    border-bottom: none;
+    /* 마지막 항목에 border 없애기 */
+}
+
+.playlist-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    height: 100px;
+    /* 항목의 높이를 지정 */
+}
+
+.playlist-item>div {
+    display: flex;
+    flex-direction: column;
+    /* 세로로 정렬 */
+    justify-content: center;
+    /* 세로 중앙 정렬 */
+    align-items: center;
+    /* 가로 중앙 정렬 */
+    text-align: center;
+    /* 텍스트 가운데 정렬 */
+    overflow: hidden;
+    /* 넘치는 텍스트 숨기기 */
+
+}
+
+.playlist-item .title-artist {
+    width: 240px;
+    /* title과 artist 묶은 div의 너비 */
+    height: 60px;
+    /* title과 artist 묶은 div의 높이 */
+}
+
+.playlist-item .ky-tj {
+    width: 120px;
+    /* ky와 tj 묶은 div의 너비 */
+    height: 60px;
+    /* ky와 tj 묶은 div의 높이 */
+}
+
+.playlist-item .title,
+.playlist-item .artist,
+.playlist-item .ky,
+.playlist-item .tj {
+    margin: 0;
+    /* 텍스트 간의 여백 제거 */
+}
+
+.playlist-item .title,
+.playlist-item .artist {
+    margin-bottom: 5px;
+    /* title과 artist 간의 간격 */
+}
+
+.playlist-item .ky,
+.playlist-item .tj {
+    margin-top: 5px;
+    /* ky와 tj 간의 간격 */
+}
+
+#admin-user-modal{
+    height: auto;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    --tw-shadow: 0px 2px 8px rgba(0, 0, 0, .08);
+    --tw-shadow-colored: 0px 2px 8px var(--tw-shadow-color);
+    padding: 32px;
+    border-width: 1px;
+    border-radius: 6px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    --tw-translate-x: -50%;
+    min-width: 360px;
+    display: flex;
+    box-sizing: border-box;
+    z-index: 50;
+    position: fixed;
+    border-color: #e6e6e7;
+    background-color: #fff;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-height: 100px;
+    resize: vertical;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.admin-user-modal-text-message{
+    width: 300px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #333334;
+    fill: #333334;
+    background-color: #f3f3f4;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-radius: 6px;
+    align-items: center;
+    margin-bottom: 8px;
+    border: none;
+    outline: none;
+    max-height: 500px;
+    height: 100px;
+    overflow: auto;
+    resize: none;
+
+}
+
+.admin-user-modal-text{
+    width: 300px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: #333334;
+    fill: #333334;
+    background-color: #f3f3f4;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-radius: 6px;
+    align-items: center;
+    margin-bottom: 8px;
+    border: none;
+    outline: none;
+    max-height: 500px;
+    resize: none;
+    overflow: auto;
+}
+
+.admin-user-modal-title{
+
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 28px;
+    color: #1d1d1e;
+    fill: #1d1d1e;
+    margin: 0;
+    margin-bottom: 12px;
+}
+
+
+
+.admin-user-modal-button{
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    display: flex;
+    margin-top: 24px;
+}
+
+.admin-user-modal-left{
+    flex: 1 1 0%;
+}
+
+.admin-user-modal-left-button{
+
+    border-radius: 6px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    position: relative;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    color: #878D91;
+    fill: #878D91;
+    -webkit-appearance: button;
+    background-image: none;
+    cursor: pointer;
+    text-transform: none;
+    font-family: inherit;
+    margin: 0;
+    padding: 0;
+    padding-left: 16px;
+    padding-right: 16px;
+    background-color: #E1E1E1;
+    border-width: 1px;
+}
+
+.admin-user-modal-right{
+    flex: 1 1 0%;
+    margin-left: 16px;
+}
+
+.admin-user-modal-right-button{
+    padding-left: 16px;
+    padding-right: 16px;
+    border-radius: 6px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    position: relative;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    color: #fff;
+    fill: #fff;
+    background-color: #CE201B;
+    -webkit-appearance: button;
+    background-image: none;
+    cursor: pointer;
+    text-transform: none;
+    font-family: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+#admin-user-modal-delete{
+    height: auto;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    --tw-shadow: 0px 2px 8px rgba(0, 0, 0, .08);
+    --tw-shadow-colored: 0px 2px 8px var(--tw-shadow-color);
+    padding: 32px;
+    border-width: 1px;
+    border-radius: 6px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    --tw-translate-x: -50%;
+    min-width: 360px;
+    display: flex;
+    box-sizing: border-box;
+    z-index: 50;
+    position: fixed;
+    border-color: #e6e6e7;
+    background-color: #fff;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-height: 100px;
+    resize: vertical;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+#admin-user-modal-delete.hidden{
+    display: none;
+}

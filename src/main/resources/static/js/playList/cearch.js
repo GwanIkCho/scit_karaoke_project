@@ -1,11 +1,14 @@
 $(function () {
     let currentPage = 0;  // 현재 페이지
     let pageSize = 10;    // 한 페이지당 데이터 수
-    getRecommendations()
-    // 검색어 입력 감지
+
+    getRecommendations();
+
+    // 검색어 입력 감지 (실시간 검색)
     $("#search-input").on("input", function () {
         let keyword = $(this).val();
         if (keyword.length > 0) {
+            currentPage = 0;  // 새로운 검색어 입력 시 1페이지로 초기화
             search(keyword, currentPage, pageSize);
         } else {
             getRecommendations();
@@ -19,14 +22,15 @@ $(function () {
             method: "GET",
             data: {
                 keyword: keyword,
-                page: page,
+                page: page,  // 현재 페이지 정보 반영
                 size: size
             },
             success: (response) => {
                 console.log(response);
-                $('#table-add').html('');
+                $('#table-add').html('');  // 기존 결과 초기화
 
                 if (response && response.content && Array.isArray(response.content) && response.content.length > 0) {
+                    // 검색 결과 테이블에 추가
                     response.content.forEach(item => {
                         let title = item['title'];
                         let singer = item['singer'];
@@ -38,6 +42,7 @@ $(function () {
                     renderPagination(response.page, response.totalPages);
                 } else {
                     $('#table-add').append('<tr><td colspan="3">검색 결과가 없습니다.</td></tr>');
+                    $('#pagination').html('');
                 }
             }
         });
@@ -50,7 +55,7 @@ $(function () {
             method: "POST",
             success: (data) => {
                 console.log('서버에서 받은 데이터:', data);
-                $('#table-add').html('');
+                $('#table-add').html('');  // 기존 결과 초기화
 
                 if (typeof data === 'string') {
                     data = JSON.parse(data);

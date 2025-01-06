@@ -25,6 +25,16 @@ public class SongDTO {
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
 
+    private Long songCount;
+
+    // 필요한 생성자 추가
+    public SongDTO(Long id, String title, String singer, Long songCount) {
+        this.id = id;
+        this.title = title;
+        this.singer = singer;
+        this.songCount = songCount;
+    }
+
 
     public static SongDTO toEntity(SongEntity songEntity) {
         return SongDTO.builder()

@@ -7,177 +7,14 @@
     <title>プレイリスト
     </title>
     <script src="/js/karaoke.js" defer></script>
+    <link rel="stylesheet" th:href="@{/css/playList/all.css}" />
+    <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/js/playList/detail.js}"></script>
 
 </head>
-<style>
-    body {
-        background-image: url("/images/bg_img.png");
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        /*커서 돌려도 배경안움직임*/
-        height: 100vh;
-        /*수직높이를 줘야함*/
-        display: flex;
-        /*flex박스 생성*/
-        justify-content: center;
-        /*플랙스 박스(가로는 정해져있음) 에서 가운데 정렬*/
-        align-items: center;
-        /*세로크기가 정해져있으니 거기 가운데로 설정한다*/
-        gap: 40px;
-        /*두 화면의 거리를 벌린다*/
-    }
-
-
-    /*왼쪽화면 CSS*/
-    .container {
-        width: 450px;
-        height: 600px;
-        background-color: white;
-        text-align: center;
-        border-radius: 30px;
-
-
-    }
-
-    .icon-btn {
-        margin-left: 10px;
-        cursor: pointer;
-    }
-
-    .icon-btn img {
-        width: 24px;
-        height: 24px;
-    }
-
-    .content {
-        flex: 1;
-        overflow-y: auto;
-        /* 세로 스크롤을 활성화 */
-        /* padding: 20px; */
-        height: 600px;
-        /* 고정 높이를 지정 */
-    }
-
-
-
-
-    .containertop {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        padding: 5px;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-        background-color: rgba(200, 200, 200, 0.8);
-        height: 50px;
-    }
-
-
-    h3 {
-        margin: 0;
-        padding: 0 0 10px 0;
-    }
-
-
-
-    .playlist-list {
-        max-height: 70%;
-        /* 플레이리스트의 최대 높이 */
-        overflow-y: auto;
-        /* 스크롤 활성화 */
-        padding-right: 10px;
-        /* 스크롤을 위한 여백 추가 */
-        text-align: center;
-
-    }
-
-    .playlist-list::-webkit-scrollbar {
-        display: none;
-        /* 스크롤바 숨기기 */
-    }
-
-    .playlist-item {
-        padding: 10px;
-        border-bottom: 1px solid #ccc;
-        display: flex;
-        justify-content: space-between;
-        /* 가로 가운데 정렬 */
-        align-items: center;
-        /* 세로 가운데 정렬 */
-        height: 50px;
-
-    }
-
-    .playlist-item:last-child {
-        border-bottom: none;
-        /* 마지막 항목에 border 없애기 */
-    }
-
-    .playlist-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px;
-        border-bottom: 1px solid #ccc;
-        height: 100px;
-        /* 항목의 높이를 지정 */
-    }
-
-    .playlist-item>div {
-        display: flex;
-        flex-direction: column;
-        /* 세로로 정렬 */
-        justify-content: center;
-        /* 세로 중앙 정렬 */
-        align-items: center;
-        /* 가로 중앙 정렬 */
-        text-align: center;
-        /* 텍스트 가운데 정렬 */
-        overflow: hidden;
-        /* 넘치는 텍스트 숨기기 */
-
-    }
-
-    .playlist-item .title-artist {
-        width: 240px;
-        /* title과 artist 묶은 div의 너비 */
-        height: 60px;
-        /* title과 artist 묶은 div의 높이 */
-    }
-
-    .playlist-item .ky-tj {
-        width: 120px;
-        /* ky와 tj 묶은 div의 너비 */
-        height: 60px;
-        /* ky와 tj 묶은 div의 높이 */
-    }
-
-    .playlist-item .title,
-    .playlist-item .artist,
-    .playlist-item .ky,
-    .playlist-item .tj {
-        margin: 0;
-        /* 텍스트 간의 여백 제거 */
-    }
-
-    .playlist-item .title,
-    .playlist-item .artist {
-        margin-bottom: 5px;
-        /* title과 artist 간의 간격 */
-    }
-
-    .playlist-item .ky,
-    .playlist-item .tj {
-        margin-top: 5px;
-        /* ky와 tj 간의 간격 */
-    }
-</style>
 
 
 <script>
-
-
 
     function deletePl(element) {
         let playlistItem = element.closest('.playlist-item');
@@ -202,7 +39,7 @@
             <a href="#">로그아웃</a>
         </div>
         <div class="containermid">
-            <h2>[부장님이 좋아하는 노래]</h2>
+            <h2 th:text="${playListDTO.playListName}">플리이름</h2>
         </div>
 
         <div class="content">
@@ -217,95 +54,35 @@
                         <p class="ky">금영 : <span>15612</span></p>
                         <p class="tj">태진 : <span>21212</span></p>
                     </div>
-
                     <div class="icon-btn add" onclick="deletePl(this)">
                         <img src="/images_pl/delete.png" alt="삭제아이콘">
                     </div>
                 </a>
-                <a href="#" class="playlist-item">
-                    <div class="title-artist">
-
-
-                        <p class="title">산타는 차갑다</p>
-                        <p class="artist">우원재</p>
-                    </div>
-                    <div>
-                        <p class="ky">금영 : <span> 15612 </span></p>
-                        <p class="tj">태진 : <span> 21212 </span></p>
-                    </div>
-                    <div class="icon-btn add" onclick="deletePl(this)">
-                        <img src="/images_pl/delete.png" alt="삭제아이콘">
-                    </div>
-                </a>
-                <a href="#" class="playlist-item">
-                    <div class="title-artist">
-
-
-                        <p class="title">너라는 별</p>
-                        <p class="artist">고추잠자리</p>
-                    </div>
-                    <div>
-                        <p class="ky">금영 : <span> 15612 </span></p>
-                        <p class="tj">태진 : <span> 21212 </span></p>
-                    </div>
-                    <div class="icon-btn add" onclick="deletePl(this)">
-                        <img src="/images_pl/delete.png" alt="삭제아이콘">
-                    </div>
-                </a>
-                <a href="#" class="playlist-item">
-                    <div class="title-artist">
-
-
-                        <p class="title">다이나믹 일본어 독해</p>
-                        <p class="artist">다이나믹 듀오</p>
-                    </div>
-                    <div>
-                        <p class="ky">금영 : <span> 15612 </span></p>
-                        <p class="tj">태진 : <span> 21212 </span></p>
-                    </div>
-                    <div class="icon-btn add" onclick="deletePl(this)">
-                        <img src="/images_pl/delete.png" alt="삭제아이콘">
-                    </div>
-                </a>
-                <a href="#" class="playlist-item">
-                    <div class="title-artist">
-
-
-                        <p class="title">프론트백엔드</p>
-                        <p class="artist">풀스택</p>
-                    </div>
-                    <div>
-                        <p class="ky">금영 : <span> 15612 </span></p>
-                        <p class="tj">태진 : <span> 21212 </span></p>
-                    </div>
-                    <div class="icon-btn add" onclick="deletePl(this)">
-                        <img src="/images_pl/delete.png" alt="삭제아이콘">
-                    </div>
-                </a>
-                <a href="#" class="playlist-item">
-                    <div class="title-artist">
-
-
-                        <p class="title">このごろごろごろごろす</p>
-                        <p class="artist">ライムキング</p>
-                    </div>
-                    <div>
-                        <p class="ky">금영 : <span> 15612 </span></p>
-                        <p class="tj">태진 : <span> 21212 </span></p>
-                    </div>
-                    <div class="icon-btn add" onclick="deletePl(this)">
-                        <img src="/images_pl/delete.png" alt="삭제아이콘">
-                    </div>
-                </a>
-
-
-
-
             </div>
         </div>
     </div>
 
-
+    <div id="admin-user-modal-delete" class="hidden">
+        <h4 class="admin-user-modal-title">정말 이 삭제하시겠습니까?!</h4>
+        <div class="admin-user-modal-button">
+            <div class="admin-user-modal-left">
+                <button
+                        class="admin-user-modal-left-button"
+                        id="modalCloseButton-delete"
+                >
+                    취소
+                </button>
+            </div>
+            <div class="admin-user-modal-right">
+                <button
+                        class="admin-user-modal-right-button"
+                        id="modalApplyButton-delete"
+                >
+                    삭제
+                </button>
+            </div>
+        </div>
+    </div>
 
 </body>
 

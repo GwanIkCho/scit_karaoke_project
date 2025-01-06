@@ -14,7 +14,7 @@ public interface ReplyRepository extends JpaRepository<ReplyEntity, Long> {
 	List<ReplyEntity> findByCreateTimeContains(String searchWord, Sort by);
 
 	//List<ReplyEntity> findByreplyLikeContains(String searchWord, Sort by);
-	
-	 List<ReplyEntity> findByContentContaining(String query);
+
+//	 List<ReplyEntity> findByContentContaining(String query);
 
 }

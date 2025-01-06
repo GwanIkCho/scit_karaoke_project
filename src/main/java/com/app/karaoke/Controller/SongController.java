@@ -62,37 +62,37 @@ public class SongController {
    }
     
     // 2. 노래창 검색
-    @GetMapping("/songSearch")
-    public String searchSong(@RequestParam("songId") SongDTO songId, @RequestParam("query") String query, Model model
-        ) {
-            // 1. 노래 정보 조회
-            SongDTO songDTO = songService.getSongById(songId);
-
-            // 2. 검색어 기반 댓글 조회
-            List<ReplyDTO> replies = replyService.searchReplies(query);
-
-            // 3. 모델에 데이터 추가
-            model.addAttribute("songDTO", songDTO);
-            model.addAttribute("replies", replies);
-            model.addAttribute("query", query); // 검색어 유지
-            model.addAttribute("songId", songId); // songId 유지
-
-            return "song/songInfo";
-    }
+//    @GetMapping("/songSearch")
+//    public String searchSong(@RequestParam("songId") SongDTO songId, @RequestParam("query") String query, Model model
+//        ) {
+//            // 1. 노래 정보 조회
+//            SongDTO songDTO = songService.getSongById(songId);
+//
+//            // 2. 검색어 기반 댓글 조회
+//            List<ReplyDTO> replies = replyService.searchReplies(query);
+//
+//            // 3. 모델에 데이터 추가
+//            model.addAttribute("songDTO", songDTO);
+//            model.addAttribute("replies", replies);
+//            model.addAttribute("query", query); // 검색어 유지
+//            model.addAttribute("songId", songId); // songId 유지
+//
+//            return "song/songInfo";
+//    }
     
     //3. 좋아요 구현
-    @PostMapping("/like")
-    public ResponseEntity<Map<String, Integer>> activeLike(@RequestBody Map<String, Long> requestData) {
-        Long songId = requestData.get("songId");
-
-        Integer newStatus = songService.activeLike(songId);
-        log.info("상태값: {}", newStatus);
-        
-        // 새로운 상태를 반환
-        Map<String, Integer> response = new HashMap<>();
-        response.put("newStatus", newStatus);
-
-        return ResponseEntity.ok(response);
-    }
+//    @PostMapping("/like")
+//    public ResponseEntity<Map<String, Integer>> activeLike(@RequestBody Map<String, Long> requestData) {
+//        Long songId = requestData.get("songId");
+//
+//        Integer newStatus = songService.activeLike(songId);
+//        log.info("상태값: {}", newStatus);
+//
+//        // 새로운 상태를 반환
+//        Map<String, Integer> response = new HashMap<>();
+//        response.put("newStatus", newStatus);
+//
+//        return ResponseEntity.ok(response);
+//    }
 
 }

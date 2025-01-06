@@ -1,7 +1,5 @@
 $(function () {
 
-
-
     init();
 
     function getParameterByName(name) {
@@ -23,7 +21,7 @@ $(function () {
             data: { id: playListId },  // id를 API에 전달
             success: (data) => {
                 console.log(data)
-                $('#table-add').html(''); // 기존 테이블 내용 삭제
+                $('.playlist-list').html(''); // 기존 테이블 내용 삭제
                 if (data.length !== 0) {
                     data.forEach(item => {
                         let id = item['id'];
@@ -38,7 +36,7 @@ $(function () {
                     });
                 } else {
                     let tag = `<div>내용이 없습니다</div>`; // 잘못 닫힌 div 수정
-                    $('#table-add').append(tag);
+                    $('.playlist-list').append(tag);
                 }
             }
         });
@@ -47,25 +45,35 @@ $(function () {
 
     function output(id, title, singer,tjNumber,kyNumber, createTime) {
         let tag = `
-                    <tr class="${id}">
-                        <td>${title}</td>
-                        <td>${singer}</td>
-                        <td>${tjNumber}</td>
-                        <td>${kyNumber}</td>
-                        <td>${createTime}</td>
-                        <td>
-                            <input type="button" class="delete" data-seq="${id}" value="삭제!">
-                        </td>
-                    </tr>
+                <div  class="${id} playlist-item">
+                    <div class="title-artist">
+                        <a class="title" href="#">${title}</a>
+                        <a class="artist" href="#">${singer}</a>
+                    </div>
+                    <div class="ky-tj">
+                        <p class="ky">금영 : <span>${kyNumber}</span></p>
+                        <p class="tj">태진 : <span>${tjNumber}</span></p>
+                    </div>
+                    <div class="icon-btn add" >
+                        <img src="/images/playList/delete.png" alt="삭제아이콘" class="delete" data-seq="${id}">
+                    </div>
+                </div>
+                    
                     `;
-        $('#table-add').append(tag);
+        $('.playlist-list').append(tag);
 
 // 삭제 버튼 클릭 시
-        $(".delete").on("click", function() {
-            // 버튼의 data-seq 속성에서 seq 값을 가져옵니다.
-            let seq = $(this).attr('data-seq');
 
-            let sendData = { "id": seq };
+        let selectedSeqq = null;
+
+        $(".delete").off("click").on("click", function () {
+            selectedSeqq = $(this).attr('data-seq');  // 전역 변수에 저장
+
+            $("#admin-user-modal-delete")[0].classList.remove("hidden");
+        });
+        $("#modalApplyButton-delete").on("click", function() {
+
+            let sendData = { "id": selectedSeqq };
 
             $.ajax({
                 url: '/playList/delete/song',
@@ -73,6 +81,7 @@ $(function () {
                 data: sendData,  // JSON.stringify 제거
                 success: () => {
                     init();
+                    $("#admin-user-modal-delete")[0].classList.add("hidden");
                 }
             });
         });
@@ -80,5 +89,8 @@ $(function () {
 
 
     }
+    $("#modalCloseButton-delete").on("click", () => {
+        $("#admin-user-modal-delete")[0].classList.add("hidden");
+    });
 
 })

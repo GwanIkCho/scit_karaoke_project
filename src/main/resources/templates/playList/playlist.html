@@ -7,151 +7,35 @@
     <title>プレイリスト
     </title>
     <script src="/js/karaoke.js" defer></script>
+    <link rel="stylesheet" th:href="@{/css/playList/all.css}" />
+    <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/js/playList/all.js}"></script>
+    <script>
+        function editName(element) {
+            let playlistItem = element.closest('.playlist-item');
+            let playlistName = playlistItem.querySelector('a').textContent; // 현재 플레이리스트 이름
+            let newName = prompt("새 플레이리스트 이름을 입력하세요:", playlistName);
 
-</head>
-<style>
-    body {
-        background-image: url("/images/bg_img.png");
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        /*커서 돌려도 배경안움직임*/
-        height: 100vh;
-        /*수직높이를 줘야함*/
-        display: flex;
-        /*flex박스 생성*/
-        justify-content: center;
-        /*플랙스 박스(가로는 정해져있음) 에서 가운데 정렬*/
-        align-items: center;
-        /*세로크기가 정해져있으니 거기 가운데로 설정한다*/
-        gap: 40px;
-        /*두 화면의 거리를 벌린다*/
-    }
-
-
-    /*왼쪽화면 CSS*/
-    .container {
-        width: 450px;
-        height: 600px;
-        background-color: white;
-        text-align: center;
-        border-radius: 30px;
-
-
-    }
-
-    .icon-btn {
-        margin-left: 10px;
-        cursor: pointer;
-    }
-
-    .icon-btn img {
-        width: 24px;
-        height: 24px;
-    }
-
-    .content {
-        flex: 1;
-        overflow-y: auto;
-        /* 세로 스크롤을 활성화 */
-        /* padding: 20px; */
-        height: 600px;
-        /* 고정 높이를 지정 */
-    }
-
-
-
-
-    .containertop {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        padding: 5px;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-        background-color: rgba(200, 200, 200, 0.8);
-        height: 50px;
-    }
-
-
-    h3 {
-        margin: 0;
-        padding: 0 0 10px 0;
-    }
-
-    .close {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background: none;
-        border: none;
-        font-size: 20px;
-        cursor: pointer;
-        color: #333;
-    }
-
-    .playlist-list {
-        max-height: 70%;
-        /* 플레이리스트의 최대 높이 */
-        overflow-y: auto;
-        /* 스크롤 활성화 */
-        padding-right: 10px;
-        /* 스크롤을 위한 여백 추가 */
-        text-align: center;
-
-    }
-
-    .playlist-list::-webkit-scrollbar {
-        display: none;
-        /* 스크롤바 숨기기 */
-    }
-
-    .playlist-item {
-        padding: 10px;
-        border-bottom: 1px solid #ccc;
-        display: flex;
-        justify-content: space-between;
-        /* 가로 가운데 정렬 */
-        align-items: center;
-        /* 세로 가운데 정렬 */
-        height: 50px;
-
-    }
-
-    .playlist-item:last-child {
-        border-bottom: none;
-        /* 마지막 항목에 border 없애기 */
-    }
-</style>
-
-
-<script>
-
-    function editName(element) {
-        let playlistItem = element.closest('.playlist-item');
-        let playlistName = playlistItem.querySelector('a').textContent; // 현재 플레이리스트 이름
-        let newName = prompt("새 플레이리스트 이름을 입력하세요:", playlistName);
-
-        if (newName && newName !== playlistName) {
-            playlistItem.querySelector('a').textContent = newName;
+            if (newName && newName !== playlistName) {
+                playlistItem.querySelector('a').textContent = newName;
+            }
         }
-    }
 
-    function deletePl(element) {
-        let playlistItem = element.closest('.playlist-item');
-        let confirmation = confirm("정말 삭제하시겠습니까?");
+        function deletePl(element) {
+            let playlistItem = element.closest('.playlist-item');
+            let confirmation = confirm("정말 삭제하시겠습니까?");
 
-        if (confirmation) {
-            playlistItem.remove(); // 삭제 확인 후 해당 항목 삭제
+            if (confirmation) {
+                playlistItem.remove(); // 삭제 확인 후 해당 항목 삭제
+            }
         }
-    }
 
-    function addPlaylist() {
-        let newPlaylistName = prompt("새 플레이리스트 이름을 입력하세요:");
-        if (newPlaylistName) {
-            let playlistList = document.querySelector('.playlist-list');
+        function addPlaylist() {
+            let newPlaylistName = prompt("새 플레이리스트 이름을 입력하세요:");
+            if (newPlaylistName) {
+                let playlistList = document.querySelector('.playlist-list');
 
-            let newItemHTML = `
+                let newItemHTML = `
                 <div class="playlist-item">
                     <a href="#">${newPlaylistName}</a>
                     <div class="icon-btn like" onclick="editName(this)">
@@ -163,10 +47,12 @@
                 </div>
             `;
 
-            playlistList.innerHTML += newItemHTML; // 새로운 항목을 리스트에 추가
+                playlistList.innerHTML += newItemHTML; // 새로운 항목을 리스트에 추가
+            }
         }
-    }
-</script>
+    </script>
+
+</head>
 
 <body>
     <!-- 왼쪽 화면-->
@@ -185,113 +71,98 @@
 
         <div class="content">
             <div class="playlist-list">
-                <div>
-                    <!-- 각 플레이리스트 항목들 -->
-                    <div class="playlist-item">
-                        <a href="#">태영추천곡 </a>
-                        <div class="icon-btn like" onclick="editName(this)">
-                            <img src="/images_pl/edit.png" alt="플레이리스트 수정 아이콘">
-                        </div>
-                        <div class="icon-btn add" onclick="deletePl(this)">
-                            <img src="/images_pl/delete.png" alt="삭제아이콘">
-                        </div>
-                    </div>
-                    <div class="playlist-item">
-                        <a href="#">부장님이 좋아할만한 곡 </a>
-                        <div class="icon-btn like" onclick="editName(this)">
-                            <img src="/images_pl/edit.png" alt="플레이리스트 수정 아이콘">
-                        </div>
-                        <div class="icon-btn add" onclick="deletePl(this)">
-                            <img src="/images_pl/delete.png" alt="삭제아이콘">
-                        </div>
-                    </div>
-                    <div class="playlist-item">
-                        <a href="#">SCIT 주제가 </a>
-                        <div class="icon-btn like" onclick="editName(this)">
-                            <img src="/images_pl/edit.png" alt="플레이리스트 수정 아이콘">
-                        </div>
-                        <div class="icon-btn add" onclick="deletePl(this)">
-                            <img src="/images_pl/delete.png" alt="삭제아이콘">
-                        </div>
-                    </div>
-                    <div class="playlist-item">
-                        <a href="#">담배필 때 맛이 좋아지는 플리 </a>
-                        <div class="icon-btn like" onclick="editName(this)">
-                            <img src="/images_pl/edit.png" alt="플레이리스트 수정 아이콘">
-                        </div>
-                        <div class="icon-btn add" onclick="deletePl(this)">
-                            <img src="/images_pl/delete.png" alt="삭제아이콘">
-                        </div>
-                    </div>
-                    <div class="playlist-item">
-                        <a href="#">오늘아침도 파이팅 </a>
-                        <div class="icon-btn like" onclick="editName(this)">
-                            <img src="/images_pl/edit.png" alt="플레이리스트 수정 아이콘">
-                        </div>
-                        <div class="icon-btn add" onclick="deletePl(this)">
-                            <img src="/images_pl/delete.png" alt="삭제아이콘">
-                        </div>
-                    </div>
-                    <div class="playlist-item">
-                        <a href="#">긴가민가한 곡 </a>
-                        <div class="icon-btn like" onclick="editName(this)">
-                            <img src="/images_pl/edit.png" alt="플레이리스트 수정 아이콘">
-                        </div>
-                        <div class="icon-btn add" onclick="deletePl(this)">
-                            <img src="/images_pl/delete.png" alt="삭제아이콘">
-                        </div>
-                    </div>
-                    <div class="playlist-item">
-                        <a href="#">인디밴드 </a>
-                        <div class="icon-btn like" onclick="editName(this)">
-                            <img src="/images_pl/edit.png" alt="플레이리스트 수정 아이콘">
-                        </div>
-                        <div class="icon-btn add" onclick="deletePl(this)">
-                            <img src="/images_pl/delete.png" alt="삭제아이콘">
-                        </div>
-                    </div>
-                    <div class="playlist-item">
-                        <a href="#">데일밴드 </a>
-                        <div class="icon-btn like" onclick="editName(this)">
-                            <img src="/images_pl/edit.png" alt="플레이리스트 수정 아이콘">
-                        </div>
-                        <div class="icon-btn add" onclick="deletePl(this)">
-                            <img src="/images_pl/delete.png" alt="삭제아이콘">
-                        </div>
-                    </div>
-                    <div class="playlist-item">
-                        <a href="#">QWER </a>
-                        <div class="icon-btn like" onclick="editName(this)">
-                            <img src="/images_pl/edit.png" alt="플레이리스트 수정 아이콘">
-                        </div>
-                        <div class="icon-btn add" onclick="deletePl(this)">
-                            <img src="/images_pl/delete.png" alt="삭제아이콘">
-                        </div>
-                    </div>
-                    <div class="playlist-item">
-                        <a href="#">일소라 </a>
-                        <div class="icon-btn like" onclick="editName(this)">
-                            <img src="/images_pl/edit.png" alt="플레이리스트 수정 아이콘">
-                        </div>
-                        <div class="icon-btn add" onclick="deletePl(this)">
-                            <img src="/images_pl/delete.png" alt="삭제아이콘">
-                        </div>
-                    </div>
-
-                </div>
-
-
-
+                <!-- 각 플레이리스트 항목들 -->
 
             </div>
             <div class="new-playlist">
-                <button onclick="addPlaylist()">새로운 플레이리스트 추가</button>
+                <button id="add-btn" >새로운 플레이리스트 추가</button>
             </div>
         </div>
     </div>
 
+    <div id="admin-user-modal" class="hidden">
+        <h4 class="admin-user-modal-title">플레이 리스트의 이름을 정해주세요!</h4>
+        <div>
+            <div>
+                <input
+                        class="admin-user-modal-text"
+                        id="modal-text"
+                >
+            </div>
+        </div>
+        <div class="admin-user-modal-button">
+            <div class="admin-user-modal-left">
+                <button
+                        class="admin-user-modal-left-button"
+                        id="modalCloseButton"
+                >
+                    취소
+                </button>
+            </div>
+            <div class="admin-user-modal-right">
+                <button
+                        class="admin-user-modal-right-button"
+                        id="modalApplyButton"
+                >
+                    만들기
+                </button>
+            </div>
+        </div>
+    </div>
 
+    <div id="admin-user-modal-add" class="hidden">
+        <h4 class="admin-user-modal-title">플레이 리스트의 이름을 정해주세요!</h4>
+        <div>
+            <div>
+                <input
+                        class="admin-user-modal-text"
+                        id="modal-text-add"
+                >
+            </div>
+        </div>
+        <div class="admin-user-modal-button">
+            <div class="admin-user-modal-left">
+                <button
+                        class="admin-user-modal-left-button"
+                        id="modalCloseButton-add"
+                >
+                    취소
+                </button>
+            </div>
+            <div class="admin-user-modal-right">
+                <button
+                        class="admin-user-modal-right-button"
+                        id="modalApplyButton-add"
+                >
+                    만들기
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="admin-user-modal-delete" class="hidden">
+        <h4 class="admin-user-modal-title">정말 이 삭제하시겠습니까?!</h4>
+        <div class="admin-user-modal-button">
+            <div class="admin-user-modal-left">
+                <button
+                        class="admin-user-modal-left-button"
+                        id="modalCloseButton-delete"
+                >
+                    취소
+                </button>
+            </div>
+            <div class="admin-user-modal-right">
+                <button
+                        class="admin-user-modal-right-button"
+                        id="modalApplyButton-delete"
+                >
+                    삭제
+                </button>
+            </div>
+        </div>
+    </div>
 
 </body>
+
 
 </html>
