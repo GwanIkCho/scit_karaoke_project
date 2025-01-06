@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>노래 기본 정보</title>
+<link rel="stylesheet" th:href="@{/css/playList/all.css}" />
+<script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+<script>
+$(function(){
+	
+	// 1. 좋아요 버튼 클릭 시
+	$('#likeBtn').on('click', activeLike);
+	// 2. 플레이리스트에 추가 버튼 클릭 시
+	$('#addPlaylistBtn').on('click', addPlayList);
+	// 3. 내 플레이리스트에 가기 버튼 클릭 시 
+	$('#myPlaylistBtn').on('click', myPlayLists);
+});
+
+	//1. 좋아요 구현
+	function activeLike(){
+		$.ajax({
+            url: '/song/like',
+            type: 'POST',
+            data: JSON.stringify({ songId: songId }),
+            success: function (response) {
+                alert(response); // "Liked" 또는 "Unliked" 메시지 표시
+            },
+            error: function () {
+                alert('좋아요 상태를 변경하는 데 실패했습니다.');
+            },
+        });
+	}
+	
+	// 2. 플레이리스트에 추가 구현
+	function addPlayList(){
+		window.location.href = 'http://localhost:10000/playList/all';
+	}
+	
+	// 3. 내 플레이리스트 바로가기 구현 
+	function myPlayLists(){
+		window.location.href = 'http://localhost:10000/playList/detail';
+	}
+</script>
+</head>
+
+<body>
+	<div id="songTotal">
+		<h1>Song Info</h1>
+		<hr>
+		<form th:action="@{/search}" method="get">
+		    <input type="text" name="query" placeholder="원하시는 노래를 검색해보세요" required />
+		    <input type="hidden" name="songId" th:value="${songDTO.songId}" />
+		    <button type="submit">검색</button>
+		</form>
+		<hr>
+		<div id="songInfo">
+			<table border="1">
+				<tr>
+					<th>제목</th>
+					<td colspan="3" th:text="${songDTO.title}"></td>
+					<!-- 하드코딩된 제목 -->
+				</tr>
+				<tr>
+					<th>가수</th>
+					<td colspan="3" th:text="${songDTO.singer}"></td>
+					<!-- 하드코딩된 가수 -->
+				</tr>
+				<tr>
+					<th>KY 노래방 번호</th>
+					<td th:text="${songDTO.kyNumber}"></td>
+					<!-- 하드코딩된 KY 번호 -->
+					<th>TJ 노래방 번호</th>
+					<td th:text="${songDTO.tjNumber}"></td>
+					<!-- 하드코딩된 TJ 번호 -->
+				</tr>
+				<tr>
+					<td colspan="4" id="btnColumn">
+						<input type="button"id="likeBtn" class="btns" value="좋아요"> 
+						<input type="button" id="addPlaylistBtn" class="btns" value="플레이리스트에 추가">
+						<input type="button" id="myPlaylistBtn" class="btns"value="내 플레이리스트"></td>
+				</tr>
+			</table>
+		</div>
+		
+		<div id="youtube">
+			<!--chatgpt 긁어옴-->
+			<form action="/youtube/search" method="get">
+				<input type="text" name="query" placeholder="Search YouTube" required />
+				<button type="submit">검색</button>
+			</form>
+			<div>
+				<ul style="list-style-type: none;">
+					<li th:each="video : ${videos}">
+						<h3 th:text="${video.title}"></h3>
+						<img th:src="${video.thumbnail}" alt="Thumbnail" />
+						<a th:href="'https://www.youtube.com/watch?v=' + ${video.videoId}" target="_blank">Watch</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div id="reply">
+			<div class="search">
+				<form th:action="allReplies" method="GET">
+					<select id="searchItem" name="searchItem">
+						<option value="replyId" th:selected="${searchItem == 'replyId'}">작성자</option>
+						<option value="createTime" th:selected="${searchItem == 'createTime'}">작성일</option>
+						
+					</select>
+					<input type="text" id="searchWord" name="searchWord" th:value="${searchWord}">
+					<!--부트스트랩에 설정된 아이디로 설정해야 됨	// 부트스트랩은 여백을 없애주는 역할을 하기 때문에 재조정 필요-->
+					<input type="submit" id="search" value="검색" class="btn btn-primary">
+				</form>
+			</div> <!--end. search-->
+
+			<table border="1" style="margin-top: 50px;">
+				<tr>
+					<th>작성자</th>
+					<th>작성일</th>
+					<th>내용</th>
+					<th>좋아요</th>
+				</tr>
+			</table>
+			<nav class="page">
+				&laquo;
+				&lsaquo;
+				1 2 3 4 5 6 7 8 9 10
+				&rsaquo;
+				&raquo;
+			</nav>
+		</div>
+	</div>
+</body>
+
+
+</html>
