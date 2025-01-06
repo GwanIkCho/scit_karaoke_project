@@ -21,7 +21,7 @@ public class ReplyService {
 	public List<ReplyDTO> selectAll(String searchItem, String searchWord) {
 			// 1. 단순조회
 			//	List<BoardEntity> entityList = repository.findAll(Sort.by(Sort.Direction.DESC, "createDate"));
-			
+
 			// 2. 검색기능 추가(쿼리메소드 생성)
 			// 		아무것도 검색하지 않을 시 전체 검색 -> select * from board where 변수 = '%%';
 			List<ReplyEntity> temp = null;
@@ -51,15 +51,15 @@ public class ReplyService {
 	}
 	
 	//검색창 구현
-	  public List<ReplyDTO> searchReplies(String query) {
-		  List<ReplyEntity> temp = repository.findByContentContaining(query);
-		  if(temp.isEmpty()) {
-			 return null; 
-		  } else {
-			 List<ReplyDTO> dtoList = new ArrayList<>();
-			 temp.forEach((entity) -> dtoList.add(ReplyDTO.toDTO(entity)));
-			
-			return dtoList;
-		  }
-	  }
+//	  public List<ReplyDTO> searchReplies(String query) {
+//		  List<ReplyEntity> temp = repository.findByContentContaining(query);
+//		  if(temp.isEmpty()) {
+//			 return null;
+//		  } else {
+//			 List<ReplyDTO> dtoList = new ArrayList<>();
+//			 temp.forEach((entity) -> dtoList.add(ReplyDTO.toDTO(entity)));
+//
+//			return dtoList;
+//		  }
+//	  }
 }

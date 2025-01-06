@@ -22,12 +22,12 @@ public class PlayListSongController {
     @Autowired
     private PlayListSongService playListSongService;
 
-    @GetMapping("/detail")
+    @GetMapping("/intoplaylist")
     public String write(@RequestParam("id") Long id, Model model) {
         PlayListDTO playListDTO =  playListSongService.selectById(id);
         log.info(playListDTO.toString());
         model.addAttribute("playListDTO", playListDTO);
-        return "/playList/detail";
+        return "/playList/intoplaylist";
     }
 
 }

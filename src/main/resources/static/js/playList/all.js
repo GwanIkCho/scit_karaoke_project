@@ -7,7 +7,7 @@ $(function () {
             url: '/playList/selectAll',
             method: "GET",
             success: (data) => {
-                $('#table-add').html(''); // 기존 테이블 내용 삭제
+                $('.playlist-list').html(''); // 기존 테이블 내용 삭제
                 if (data.length !== 0) {
                     data.forEach(item => {
                         let id = item['id'];
@@ -20,7 +20,7 @@ $(function () {
                     });
                 } else {
                     let tag = `<div>내용이 없습니다</div>`; // 잘못 닫힌 div 수정
-                    $('#table-add').append(tag);
+                    $('.playlist-list').append(tag);
                 }
             }
         });
@@ -30,51 +30,62 @@ $(function () {
     function output(playListName, createTime,id,userId, isLiked) {
         console.log(isLiked)
         if(isLiked === true){
-            let url = `/playList/detail?id=${id}`;
+            let url = `/playList/intoplaylist?id=${id}`;
             let tag = `
-                    <tr class="${id}">
-                        <td><a href="${url}">$${playListName}</a></td>
-                        <td>${createTime}</td>
-                        <td>
-                            <input type="button" class="like-check" data-seq="${id}" value="좋아요 누른상태!!">
-                        </td>
-                        <td>
-                            <input type="button" class="delete" data-seq="${id}" value="삭제!">
-                        </td>
-                        <td>
-                            <input type="button" class="namech" data-seq="${id}" data-name="${playListName}" value="플레이리스트 이름수정!">
-                        </td>
-                    </tr>
-                    `;
-            $('#table-add').append(tag);
+                <div class="${id} playlist-item">
+                    <div><a href="${url}">${playListName}</a></div>
+                    <div class="icon-btn active">
+                        <img src="/images/playList/like_btn.png" alt="삭제아이콘" data-seq="${id}" class="like-check">
+                    </div>
+                    <div class="icon-btn like">
+                        <img class="namech " src="/images/playList/edit.png" alt="이름 수정" 
+                                data-seq="${id}" data-name="${playListName}">
+                    </div>
+                    <div class="icon-btn add">
+                        <img src="/images/playList/delete.png" alt="삭제아이콘" data-seq="${id}">
+                    </div>
+                </div>
+            `
+            $('.playlist-list').append(tag);
 
         } else{
-            let url = `/playList/detail?id=${id}`;
+            let url = `/playList/intoplaylist?id=${id}`;
             let tag = `
-                    <tr class="${id}">
-                        <td><a href="${url}">$${playListName}</a></td>
-                        <td>${createTime}</td>
-                        <td>
-                            <input type="button" class="like-check" data-seq="${id}" value="좋아요 안누름!">
-                        </td>
-                        <td>
-                            <input type="button" class="delete" data-seq="${id}" value="삭제!">
-                        </td>
-                        <td>
-                            <input type="button" class="namech" data-seq="${id}" data-name="${playListName}" value="플레이리스트 이름수정!">
-                        </td>
-                    </tr>
-                    `;
-            $('#table-add').append(tag);
+                <div class="${id} playlist-item">
+                    <div><a href="${url}">${playListName}</a></div>
+                    <div class="icon-btn">
+                        <img src="/images/playList/like_btn.png" alt="삭제아이콘" data-seq="${id}" class="like-check">
+                    </div>
+                    <div class="icon-btn like">
+                        <img class="namech " src="/images/playList/edit.png" alt="이름 수정" 
+                                data-seq="${id}" data-name="${playListName}">
+                    </div>
+                    <div class="icon-btn add">
+                        <img src="/images/playList/delete.png" alt="삭제아이콘" data-seq="${id}"
+                                class="delete">
+                    </div>
+                </div>
+            `
+            $('.playlist-list').append(tag);
         }
 
 
 // 삭제 버튼 클릭 시
-        $(".delete").on("click", function() {
-            // 버튼의 data-seq 속성에서 seq 값을 가져옵니다.
-            let seq = $(this).attr('data-seq');
 
-            let sendData = { "id": seq };
+        let selectedSeqq = null;
+
+        $(".delete").off("click").on("click", function () {
+            selectedSeqq = $(this).attr('data-seq');  // 전역 변수에 저장
+
+            $("#modal-text-delete").val(playListName);
+            $("#admin-user-modal-delete")[0].classList.remove("hidden");
+        });
+
+
+
+        $("#modalApplyButton-delete").on("click", function() {
+            // 버튼의 data-seq 속성에서 seq 값을 가져옵니다.
+            let sendData = { "id": selectedSeqq };
 
             $.ajax({
                 url: '/playList/delete',
@@ -82,6 +93,7 @@ $(function () {
                 data: sendData,  // JSON.stringify 제거
                 success: () => {
                     init();
+                    $("#admin-user-modal-delete")[0].classList.add("hidden");
                 }
             });
         });
@@ -132,6 +144,10 @@ $(function () {
 
     }
 
+    $("#modalCloseButton-delete").on("click", () => {
+        $("#admin-user-modal-delete")[0].classList.add("hidden");
+    });
+
     $("#modalCloseButton-add").on("click", () => {
         $("#admin-user-modal-add")[0].classList.add("hidden");
     });
@@ -165,7 +181,6 @@ $(function () {
             }
         });
     });
-
 
 
 })

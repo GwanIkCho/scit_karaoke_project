@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class PlayListController {
 
-    @GetMapping("/all")
+    @GetMapping("/playlist")
     public String playList(){
-        return "/playList/all";
+        return "/playList/playlist";
     }
 
     @GetMapping("/search")
