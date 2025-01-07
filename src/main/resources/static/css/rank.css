@@ -164,7 +164,7 @@ element {
 }
 
 .modal {
-    display: none;
+    display: flex;
     position: fixed;
     top: 0;
     left: 0;
@@ -236,4 +236,56 @@ h3 {
 
 .icon-btn.like.active {
     filter: invert(54%) sepia(96%) saturate(746%) hue-rotate(10deg) brightness(97%);
+}
+
+
+.modals {
+    display: flex;
+    position: fixed;
+    top: 303px;  /* 현재 위치 유지 */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: flex-start;  /* 모달이 상단에 위치 */
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 370px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    position: relative;
+    max-height: 40vh;  /* 모달 최대 높이 조정 (화면 높이의 60%) */
+    overflow-y: auto;  /* 내용이 넘칠 경우 스크롤 */
+}
+
+
+/* 스크롤바 숨기기 */
+.modal-content::-webkit-scrollbar {
+    width: 0;  /* 스크롤바 너비를 0으로 설정해 숨김 */
+}
+
+/* 스크롤바 트랙 (선택사항: 스크롤바 공간도 숨기기) */
+.modal-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* 스크롤바 핸들 (움직이는 부분 숨기기) */
+.modal-content::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+
+.playlist-items {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+}
+
+.hidden{
+    display: none;
 }

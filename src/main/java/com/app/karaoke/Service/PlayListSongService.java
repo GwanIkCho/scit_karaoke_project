@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,6 +47,25 @@ public class PlayListSongService {
 
         return PlayListDTO.playlisttoDTO(target);  // 엔티티 → DTO 변환
     }
+
+    public void add(Long playListId, Long songId) {
+        // 중복 데이터 존재 여부 확인
+        boolean exists = playListSongRepository.existsByPlayListIdAndSongId(playListId, songId);
+
+        if (!exists) {
+            PlayListSongEntity target = new PlayListSongEntity();
+            target.setPlayListId(playListId);
+            target.setSongId(songId);
+            target.setStatus(1);
+            target.setUpdateTime(LocalDateTime.now());
+            target.setCreateTime(LocalDateTime.now());
+            playListSongRepository.save(target);
+        } else {
+            // 이미 존재하는 경우 처리 (예: 예외 발생, 메시지 반환 등)
+            throw new IllegalArgumentException("이미 플레이리스트에 존재하는 곡입니다.");
+        }
+    }
+
 
 
 }

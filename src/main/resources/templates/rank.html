@@ -1,87 +1,89 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>「コインカラオケ」歌いましょう</title>
+        <script src="/js/karaoke.js" defer></script>
+        <link
+            rel="stylesheet"
+            th:href="@{/css/rank.css}"
+            href="../static/css/rank.css"
+        />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>「コインカラオケ」歌いましょう</title>
-    <script src="/js/karaoke.js" defer></script>
-    <link rel="stylesheet" th:href="@{/css/rank.css}" />
-    <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
-    <script th:src="@{/js/rank.js}"></script>
+        <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+        <script th:src="@{/js/rank.js}"></script>
+    </head>
+    <style></style>
 
-</head>
-<style>
+    <script>
+        function toggleLike(element) {
+            // 'like' 클래스를 토글하여 아이콘 색상 변경
+            element.classList.toggle("active");
+        }
 
-</style>
+        function addToPlaylist() {}
+    </script>
 
-<script>
-
-    function toggleLike(element) {
-        // 'like' 클래스를 토글하여 아이콘 색상 변경
-        element.classList.toggle('active');
-    }
-
-    function addToPlaylist() {
-
-    }
-
-</script>
-
-<body>
-    <div class="container">
-        <div class="containertop">
-            <!-- <a href="#"> <img src="/images/menu_icon.png" alt="메뉴 이미지" class="menu_img" name="menu_img"></a> -->
-            <a href="#">플레이리스트</a>
-            <a href="#">랭킹</a>
-            <a href="#">주변 노래방</a>
-            <a href="#">로그아웃</a>
-        </div>
-        <div class="content">
-            <div class="containersearch">
-                <input type="search" class="search" name="search" placeholder="제목, 가수명으로 검색해주세요">
-                <a href="#"> <img src="/images/search_img.png" alt="검색하기" class="search_btn"></a>
+    <body>
+        <div class="container">
+            <div class="containertop">
+                <!-- <a href="#"> <img src="/images/menu_icon.png" alt="메뉴 이미지" class="menu_img" name="menu_img"></a> -->
+                <a href="#">플레이리스트</a>
+                <a href="#">랭킹</a>
+                <a href="#">주변 노래방</a>
+                <a href="#">로그아웃</a>
             </div>
-            <div class="ranking-title">TOP 100</div>
-            <ul class="playlist">
-                <li class="playlist-item">
-                    <img src="/images/pl_1.jpg" alt="썸네일">
-                    <div class="playlist-item-content">
-                        <p class="title">1. Creepy Nuts - Bling-Bang-Bang-Born</p>
-                        <p class="artist">Creepy Nuts • 02:48</p>
-                    </div>
-                    <div class="icon-btn like" onclick="toggleLike(this)">
-                        <img src="/images/playList/like_btn.png" alt="엄지 아이콘">
-                    </div>
-                    <div class="icon-btn add" onclick="addToPlaylist()">
-                        <img src="/images/pl_btn.png" alt="플레이리스트 추가 아이콘">
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="modal" id="modal">
-        <div class="modal-content">
-            <h3>플레이리스트</h3>
-            <button class="close" id="closeModal">X</button>
-
-            <div class="playlist-list">
-                <!-- 각 플레이리스트 항목들 -->
-                <div class="playlist-item">태영추천곡</div>
-                <div class="playlist-item">부장님이 좋아할만한 곡</div>
-                <div class="playlist-item">SCIT 주제가</div>
-                <div class="playlist-item">담배필 때 맛이 좋아지는 플리</div>
-                <div class="playlist-item">오늘아침도 파이팅</div>
-                <div class="playlist-item">긴가민가한 곡</div>
-                <div class="playlist-item">인디밴드</div>
-                <div class="playlist-item">데일밴드</div>
-                <div class="playlist-item">QWER</div>
-                <div class="playlist-item">일소라</div>
+            <div class="content">
+                <div class="containersearch">
+                    <input
+                        type="search"
+                        class="search"
+                        name="search"
+                        autocomplete="off"
+                        placeholder="제목, 가수명으로 검색해주세요"
+                    />
+                    <a href="#">
+                        <img
+                            src="/images/search_img.png"
+                            alt=""
+                            class="search_btn"
+                    /></a>
+                </div>
+                <div class="ranking-title">TOP 100</div>
+                <ul class="playlist">
+                    <!-- 노래 들어가는 부분-->
+                </ul>
             </div>
         </div>
-    </div>
 
-</body>
+        <div class="hidden modal" id="modal">
+            <div class="modal-content">
+                <h3>플레이리스트</h3>
+                <button class="close" id="closeModal">X</button>
 
+                <div class="playlist-list">
+                    <!-- 각 플레이리스트 항목들 -->
+                </div>
+            </div>
+        </div>
+
+        <div class="hidden modals" id="modals">
+            <div class="modal-content">
+                <h3>검색결과</h3>
+                <div class="playlist-items">검색1</div>
+                <div class="playlist-items">검색1</div>
+                <div class="playlist-items">검색1</div>
+                <div class="playlist-items">검색1</div>
+                <div class="playlist-items">검색1</div>
+                <div class="playlist-items">검색1</div>
+                <div class="playlist-items">검색1</div>
+                <div class="playlist-items">검색1</div>
+                <div class="playlist-items">검색1</div>
+                <div class="playlist-items">검색1</div>
+                <div class="playlist-items">검색1</div>
+                <div class="playlist-items">검색1</div>
+            </div>
+        </div>
+    </body>
 </html>

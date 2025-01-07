@@ -1,6 +1,7 @@
 package com.app.karaoke.DTO;
 
 import com.app.karaoke.Entity.SongEntity;
+import com.app.karaoke.Entity.SongLikeEntity;
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,13 +27,18 @@ public class SongDTO {
     private LocalDateTime updateTime;
 
     private Long songCount;
+    private SongLikeEntity songLike;
+
+
+    private boolean isLiked;
 
     // 필요한 생성자 추가
-    public SongDTO(Long id, String title, String singer, Long songCount) {
+    public SongDTO(Long id, String title, String singer, Long songCount, boolean isLiked) {
         this.id = id;
         this.title = title;
         this.singer = singer;
         this.songCount = songCount;
+        this.isLiked = isLiked;
     }
 
 
