@@ -2,7 +2,9 @@ package com.app.karaoke.Service;
 
 import com.app.karaoke.DTO.PagenationDTO;
 import com.app.karaoke.DTO.SongDTO;
+import com.app.karaoke.Entity.PlayListLikeEntity;
 import com.app.karaoke.Entity.SongEntity;
+import com.app.karaoke.Entity.SongLikeEntity;
 import com.app.karaoke.Repository.PlayListSongRepository;
 import com.app.karaoke.Repository.SongRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +15,11 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -50,11 +55,7 @@ public class SongService {
 
     public List<SongDTO> allSongs() {
         Pageable pageable = PageRequest.of(0, 100);
-        List<SongEntity> songs = songRepository.findTopSongs(pageable);
-
-        return songs.stream()
-                .map(song -> new SongDTO(song.getId(), song.getTitle(), song.getSinger(), 0L))  // 초기 songCount는 0L
-                .collect(Collectors.toList());
+        return songRepository.findTopSongsWithLikeStatus(pageable);
     }
 
 
