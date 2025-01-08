@@ -1,5 +1,7 @@
 $(function () {
     let currentSongId = null;
+    let currentPage = 0;  // 현재 페이지
+    let pageSize = 10;    // 한 페이지당 데이터 수
     init();
 
     function init(){
@@ -140,11 +142,139 @@ $(function () {
     }
 
     $(".search").on("focus", function () {
-        $("#modals")[0].classList.remove("hidden");  // 포커스 시 모달 표시
-    }).on("blur", function () {
-        $("#modals")[0].classList.add("hidden");  // 포커스 해제 시 모달 숨김
+        $("#modals")[0].classList.remove("hidden");
+        $("#modalOverlay")[0].classList.remove("hidden");
+        if ($("#search-input").val() ===""){
+            getRecommendations();
+        }// 포커스 시 모달 표시
+        $("#search-input").on("input", function () {
+            let keyword = $(this).val();
+            if (keyword.length > 0) {
+                currentPage = 0;  // 새로운 검색어 입력 시 1페이지로 초기화
+                search(keyword, currentPage, pageSize);
+            } else {
+                getRecommendations();
+            }
+        });
+    })
+
+    $(document).on("mousedown", function (e) {
+        // 모달창 영역 외부 클릭 시 모달 닫기
+        if (!$(e.target).closest(".modal-content, .search").length) {
+            $(".modals")[0].classList.add("hidden");
+            $("#modalOverlay")[0].classList.add("hidden");  // 오버레이도 함께 숨기기
+        }
     });
 
+
+    function search(keyword, page, size) {
+        $.ajax({
+            url: '/playList/searchAPI',
+            method: "GET",
+            data: {
+                keyword: keyword,
+                page: page,  // 현재 페이지 정보 반영
+                size: size
+            },
+            success: (response) => {
+                console.log(response);
+                $('#target').html('');  // 기존 결과 초기화
+
+                if (response && response.content && Array.isArray(response.content) && response.content.length > 0) {
+                    // 검색 결과 테이블에 추가
+                    response.content.forEach(item => {
+                        let title = item['title'];
+                        let singer = item['singer'];
+                        outputs(title, singer);
+                    });
+
+                    // 페이지네이션 렌더링
+                    renderPagination(response.page, response.totalPages);
+                } else {
+                    $('#target').append('<tr><td colspan="3">검색 결과가 없습니다.</td></tr>');
+                    $('#pagination').html('');
+                }
+            }
+        });
+    }
+
+    function getRecommendations() {
+        $.ajax({
+            url: '/recommendations',
+            method: "POST",
+            success: (data) => {
+                console.log('서버에서 받은 데이터:', data);
+                $('#target').html('');  // 기존 결과 초기화
+
+                if (typeof data === 'string') {
+                    data = JSON.parse(data);
+                }
+
+                if (Array.isArray(data) && data.length > 0) {
+                    data.forEach(item => {
+                        let title = item['title'];
+                        let singer = item['singer'];
+                        outputs(title, singer);
+                    });
+                } else {
+                    $('#target').append('<tr><td colspan="3">추천 곡이 없습니다.</td></tr>');
+                }
+            },
+            error: (xhr) => {
+                console.error('에러 발생:', xhr.responseText);
+                $('#target').html(`
+                <tr>
+                    <td colspan="3" style="text-align: center;">
+                        로그인 해주시면<br>노래를 추천해드립니다!<br>
+                        <a href="/login" style="color: blue; text-decoration: underline;">로그인 하러 가기</a>
+                    </td>
+                </tr>
+            `);
+            }
+        });
+    }
+
+    function outputs(title, singer) {
+        let tag = `
+            <div class="search-item">
+                <span class="title">${title}</span>
+                <span class="artist">${singer}</span>
+            </div>
+            `;
+        $('#target').append(tag);
+    }
+
+    function renderPagination(currentPage, totalPages) {
+        $('#pagination').html('');  // 기존 페이지네이션 초기화
+
+        let startPage = Math.max(0, currentPage - 2);
+        let endPage = Math.min(totalPages - 1, startPage + 4);
+
+        // 이전(«) 버튼
+        if (currentPage > 0) {
+            $('#pagination').append(`<button onclick="goToPage(${currentPage - 1})">«</button>`);
+        }
+
+        // 페이지 번호 (1~5)
+        for (let i = startPage; i <= endPage; i++) {
+            let btn = `<button onclick="goToPage(${i})" ${i === currentPage ? 'disabled' : ''}>${i + 1}</button>`;
+            $('#pagination').append(btn);
+        }
+
+        // 다음(») 버튼
+        if (currentPage < totalPages - 1) {
+            $('#pagination').append(`<button onclick="goToPage(${currentPage + 1})">»</button>`);
+        }
+    }
+
+    // 페이지 이동
+    window.goToPage = function (page) {
+        currentPage = page;
+        let keyword = $('#search-input').val();
+        if (keyword.length > 0) {
+            search(keyword, currentPage, pageSize);
+        }
+    }
 
 
 
