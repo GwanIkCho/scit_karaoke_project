@@ -27,8 +27,8 @@ public class MainContoller {
 	}
 
 	@GetMapping("/")
-	public String mainpage() {
-		return "mainPage";
+	public String index() {
+		return "index";
 	}
 
 	@GetMapping("/login")

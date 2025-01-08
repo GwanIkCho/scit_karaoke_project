@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>「コインカラオケ」歌いましょう</title>
     <!-- <script src="/js/karaoke.js" defer></script> -->
-    <script src="/js/karaoke.js" defer></script>
+    <script src="/js/main/karaoke.js" defer></script>
 
 </head>
 <style>
@@ -308,18 +308,20 @@
 
 <body>
     <div class="container">
+    <ul>
+    <th:block sec:authorize="isAnonymous()">
         <div class="containertop">
             <!-- <a href="#"> <img src="/images/menu_icon.png" alt="메뉴 이미지" class="menu_img" name="menu_img"></a> -->
-            <a href="#">플레이리스트</a>
-            <a href="#">랭킹</a>
-            <a href="#">주변 노래방</a>
-            <a href="#">로그인</a>
+            <a th:href="@{login}">플레이리스트</a>
+            <a th:href="@{rank}">랭킹</a>
+            <a th:href="@{map}">주변 노래방</a>
+            <a th:href="@{login}">로그인</a>
         </div>
         <div class="containermid">
             <div class="containersearch">
                 <input type="search" class="search" name="search" placeholder="제목, 가수명으로 검색해주세요">
                 <div class="search-results" id="searchResults"></div> <!-- 검색 결과 창 -->
-                <a th:href=""> <img src="/images/search_img.png" alt="검색하기" class="search_btn"></a>
+                <a th:href="@{search}"> <img src="/images/search_img.png" alt="검색하기" class="search_btn"></a>
 
             </div>
             <!-- <div class="containersearch">
@@ -343,21 +345,77 @@
 
 
             <br><br>
-            <a th:href="">
+            <a th:href="@{login}">
                 <img src="/images/pl_btn.png" alt="pl_btn" class="pl_btn">
                 <div class="overay1">플레이리스트</div>
             </a>
             <br><br>
-            <a th:href="">
+            <a th:href="@{rank}">
                 <img src="/images/rank_btn.jpeg" alt="rank_btn" class="pl_btn">
                 <div class="overay2">랭킹</div>
             </a>
             <br><br>
-            <a th:href="">
+            <a th:href="@{map}">
                 <img src="/images/map_btn.png" alt="map_btn" class="pl_btn">
                 <div class="overay3">주변 노래방</div>
             </a>
         </div> <!--containermid-->
+    </th:block> 
+    </ul>   
+    <ul>
+    <th:block sec:authorize="isAuthenticated()">
+        <div class="containertop">
+            <!-- <a href="#"> <img src="/images/menu_icon.png" alt="메뉴 이미지" class="menu_img" name="menu_img"></a> -->
+            <a th:href="@{/playList/playlist}">플레이리스트</a>
+            <a th:href="@{rank}">랭킹</a>
+            <a th:href="@{map}">주변 노래방</a>
+            <a th:href="@{logout}">로그아웃</a>
+        </div>
+        <div class="containermid">
+            <div class="containersearch">
+                <input type="search" class="search" name="search" placeholder="제목, 가수명으로 검색해주세요">
+                <div class="search-results" id="searchResults"></div> <!-- 검색 결과 창 -->
+                <a th:href="@{search}"> <img src="/images/search_img.png" alt="검색하기" class="search_btn"></a>
+
+            </div>
+            <!-- <div class="containersearch">
+                <input type="search" class="search" name="search" placeholder="제목, 가수명으로 검색해주세요">
+            </div> -->
+            <div class="ranking-title">일일랭킹</div>
+            <div class="ranking-container">
+                <div class="ranking-text">
+                    <p>1위: 아이유 - 너의 의미</p>
+                    <p>2위: BTS - Dynamite</p>
+                    <p>3위: 블랙핑크 - How You Like That</p>
+                    <p>4위: 블랙핑크 - How You Like That</p>
+                    <p>5위: 블랙핑크 - How You Like That</p>
+                    <p>6위: 블랙핑크 - How You Like That</p>
+                    <p>7위: 블랙핑크 - How You Like That</p>
+                    <p>8위: 블랙핑크 - How You Like That</p>
+                    <p>9위: 블랙핑크 - How You Like That</p>
+                    <p>10위: 블랙핑크 - How You Like That</p>
+                </div>
+            </div>
+
+
+            <br><br>
+            <a th:href="@{/playList/playlist}">
+                <img src="/images/pl_btn.png" alt="pl_btn" class="pl_btn">
+                <div class="overay1">플레이리스트</div>
+            </a>
+            <br><br>
+            <a th:href="@{rank}">
+                <img src="/images/rank_btn.jpeg" alt="rank_btn" class="pl_btn">
+                <div class="overay2">랭킹</div>
+            </a>
+            <br><br>
+            <a th:href="@{map}">
+                <img src="/images/map_btn.png" alt="map_btn" class="pl_btn">
+                <div class="overay3">주변 노래방</div>
+            </a>
+        </div> <!--containermid-->
+    </th:block> 
+    </ul>   
     </div> <!--container 끝나는지점-->
     <!--
     모달창

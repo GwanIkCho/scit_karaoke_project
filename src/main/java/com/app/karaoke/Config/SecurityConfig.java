@@ -41,6 +41,16 @@ public class SecurityConfig {
                 .successHandler(successHandler())
                 .userInfoEndpoint(userInfo -> userInfo.userService(oAuth2UserService))
         );
+        
+        // 로그아웃 설정 추가
+        http.logout(logout -> logout
+                .logoutUrl("/logout") // 로그아웃 요청 URL
+                .logoutSuccessUrl("/") // 로그아웃 성공 후 이동할 URL
+                .invalidateHttpSession(true) // 세션 무효화
+                .clearAuthentication(true) // 인증 정보 제거
+                .deleteCookies("JSESSIONID") // 쿠키 제거
+                .permitAll() // 로그아웃 요청에 대해 인증 없이 접근 가능
+        );
         return http.build();
     }
 
