@@ -12,4 +12,14 @@ public class AdminController {
     public String adminUser() {
         return "admin/adminUser";
     }
+    
+    @GetMapping("/adminSong")
+    public String adminSong() {
+        return "admin/adminSong";
+    }
+    
+    @GetMapping("/adminReply")
+    public String adminReply() {
+        return "admin/adminReply";
+    }    
 }
