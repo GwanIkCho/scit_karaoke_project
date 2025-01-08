@@ -41,6 +41,7 @@
                         class="search"
                         name="search"
                         autocomplete="off"
+                        id="search-input"
                         placeholder="제목, 가수명으로 검색해주세요"
                     />
                     <a href="#">
@@ -68,22 +69,16 @@
             </div>
         </div>
 
+<!--       히든 추가 해야합니다~ -->
         <div class="hidden modals" id="modals">
             <div class="modal-content">
                 <h3>검색결과</h3>
-                <div class="playlist-items">검색1</div>
-                <div class="playlist-items">검색1</div>
-                <div class="playlist-items">검색1</div>
-                <div class="playlist-items">검색1</div>
-                <div class="playlist-items">검색1</div>
-                <div class="playlist-items">검색1</div>
-                <div class="playlist-items">검색1</div>
-                <div class="playlist-items">검색1</div>
-                <div class="playlist-items">검색1</div>
-                <div class="playlist-items">검색1</div>
-                <div class="playlist-items">검색1</div>
-                <div class="playlist-items">검색1</div>
+                <div id="target" class="search-list">
+
+                </div>
             </div>
         </div>
+        <div class="modal-overlay hidden" id="modalOverlay"></div>
+
     </body>
 </html>
