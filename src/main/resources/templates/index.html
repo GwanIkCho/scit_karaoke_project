@@ -84,8 +84,12 @@
         padding: 5px;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
-        background-color: rgba(200, 200, 200, 0.8);
         height: 50px;
+    }
+    
+        div.containertop img {
+        width: 24px;
+        height: 24px;
     }
 
     .overay1 {
@@ -308,14 +312,15 @@
 
 <body>
     <div class="container">
-    <ul>
+    <!-- <ul> -->
     <th:block sec:authorize="isAnonymous()">
         <div class="containertop">
             <!-- <a href="#"> <img src="/images/menu_icon.png" alt="메뉴 이미지" class="menu_img" name="menu_img"></a> -->
-            <a th:href="@{login}">플레이리스트</a>
-            <a th:href="@{rank}">랭킹</a>
-            <a th:href="@{map}">주변 노래방</a>
-            <a th:href="@{login}">로그인</a>
+            <a th:href="@{login}"><img th:src="@{/images/PL.png}" alt="플레이리스트 아이콘"></a>
+            <a th:href="@{rank}"><img th:src="@{/images/rank.png}" alt="랭킹 아이콘"></a>
+            <a th:href="@{map}"><img th:src="@{/images/map.png}" alt="지도 아이콘"></a>
+            <a th:href="@{login}"> <img th:src="@{/images/login.png}" alt="로그아웃 아이콘"></a>
+
         </div>
         <div class="containermid">
             <div class="containersearch">
@@ -361,15 +366,15 @@
             </a>
         </div> <!--containermid-->
     </th:block> 
-    </ul>   
-    <ul>
+    <!-- </ul> -->   
+    <!-- <ul> --> 
     <th:block sec:authorize="isAuthenticated()">
         <div class="containertop">
             <!-- <a href="#"> <img src="/images/menu_icon.png" alt="메뉴 이미지" class="menu_img" name="menu_img"></a> -->
-            <a th:href="@{/playList/playlist}">플레이리스트</a>
-            <a th:href="@{rank}">랭킹</a>
-            <a th:href="@{map}">주변 노래방</a>
-            <a th:href="@{logout}">로그아웃</a>
+            <a th:href="@{login}"><img th:src="@{/images/PL.png}" alt="플레이리스트 아이콘"></a>
+            <a th:href="@{rank}"><img th:src="@{/images/rank.png}" alt="랭킹 아이콘"></a>
+            <a th:href="@{map}"><img th:src="@{/images/map.png}" alt="지도 아이콘"></a>
+            <a th:href="@{logout}"> <img th:src="@{/images/logout.png}" alt="로그아웃 아이콘"></a>
         </div>
         <div class="containermid">
             <div class="containersearch">
@@ -415,7 +420,7 @@
             </a>
         </div> <!--containermid-->
     </th:block> 
-    </ul>   
+<!-- </ul> --> 
     </div> <!--container 끝나는지점-->
     <!--
     모달창
