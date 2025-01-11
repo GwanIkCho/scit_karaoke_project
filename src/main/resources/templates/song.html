@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>「コインカラオケ」歌いましょう</title>
+    <!-- <script src="/js/karaoke.js" defer></script> -->
+    <script src="/js/main/karaoke.js" defer></script>
+
+</head>
+<style>
+    body {
+        background-image: url("/images/bg_img.png");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    element {
+        cursor: url(/images/login_img.png), auto;
+    }
+
+    .menu_image,
+    .login_img {
+        width: 40px;
+    }
+
+    .container {
+        width: 450px;
+        height: 600px;
+        background-color: white;
+        text-align: center;
+        border-radius: 30px;
+    }
+
+    .search {
+
+        width: 100%;
+        height: 24px;
+        border: none;
+    }
+
+    .search_btn {
+        width: 20px;
+        margin-left: 50px;
+        margin-top: 10px;
+    }
+
+    .containersearch {
+        position: center;
+        margin: 5px;
+        padding: 5px;
+        width: 400px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-left: 15px;
+        margin-top: 8px;
+    }
+.mainTable th .icon-container {
+    display: flex; /* 아이콘들을 한 줄로 배치 */
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    gap: 10px; /* 아이콘 간격 */
+    position: absolute;
+    right: 10px; /* 테두리와의 간격 */
+    top: 50%; /* 수직 중앙 정렬 */
+    transform: translateY(-50%);
+}
+    .menu_btn {
+        place-self: left;
+        width: 10px;
+        height: 10px;
+    }
+
+    .pl_btn {
+        width: 400px;
+        height: 10%;
+    }
+
+    .containertop {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 5px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        height: 50px;
+    }
+
+    .search-results {
+        position: absolute;
+        top: 24%;
+        width: 400px;
+        background: white;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        display: none;
+        /* 기본적으로 숨김 */
+        z-index: 1000;
+    }
+    
+    div.containertop img{
+    	width: 40px;
+    	height: 40px;
+    }
+    
+    div.containersearch select{
+    border: none;
+    }
+    .mainTable .icon-btn {
+    display: inline-flex; /* 아이콘 버튼들을 가로로 정렬 */
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px; /* 각 아이콘 간 간격 */
+    width: 30px; /* 버튼 크기 */
+    height: 30px;
+}
+        table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+    .actions {
+      display: flex;
+      gap: 10px;
+    }
+    .actions button {
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    
+      .icon-btn {
+    display: inline-flex; /* 아이콘 버튼들이 한 줄로 배치되도록 수정 */
+    align-items: center;
+    margin-left: 10px;
+    cursor: pointer;
+    width: 30px;
+    margin-right: 24px; /* 24px씩 간격을 띄우기 */
+    }
+
+    .icon-btn img {
+        width: 24px;
+        height: 24px;
+    }
+    
+        .icon-btn.like.active {
+        filter: invert(54%) sepia(96%) saturate(746%) hue-rotate(10deg) brightness(97%);
+    }
+    
+
+th {
+        position: relative;
+        text-align: left;
+    }
+
+    th .icon-btn {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    /* replyTable 스타일 */
+    .replyTable {
+        font-size: 12px; /* 글씨 크기 작게 */
+        width: 100%;
+    }
+
+    .replyTable th,
+    .replyTable td {
+        padding: 5px; /* 패딩 조정 */
+    }
+
+    .replyTable .username {
+        font-weight: bold; /* 이름 굵게 */
+    }
+
+    .replyTable td {
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* 이름과 내용이 한 줄에 표시 */
+    }
+    
+    nav.page {
+    position: flex;
+    bottom: 10px; /* 컨테이너 하단에서 10px 띄움 */
+    width: 100%;
+    text-align: center;
+}
+
+div.reply {
+    margin: 1px 0; /* 위아래 여백 줄임 */
+    font-size: 14px; /* 글씨 크기 작게 */
+    font-weight: bold; /* 글씨 두껍게 */
+}
+	div.containermid {
+	width: 100%;
+	height: 100%;
+	}
+	
+	div.containertop img{
+	width:24px;
+	height: 24px;
+	}
+</style>
+<script>
+    function toggleLike(element) {
+        // 'like' 클래스를 토글하여 아이콘 색상 변경
+        element.classList.toggle("active");
+    }
+
+    function addToPlaylist() { }
+</script>
+<body>
+    <div class="container">
+        <div class="containertop">
+        
+            <!-- <a href="#"> <img src="/images/menu_icon.png" alt="메뉴 이미지" class="menu_img" name="menu_img"></a> -->
+            <a href="#"><img th:src="@{/images/PL.png}" alt="플레이리스트 아이콘"></a>
+            <a href="#"><img th:src="@{/images/rank.png}" alt="랭킹 아이콘"></a>
+            <a href="#"><img th:src="@{/images/map.png}" alt="지도 아이콘"></a>
+            <a href="#"> <img th:src="@{/images/logout.png}" alt="로그아웃 아이콘"></a>
+        </div>
+        <div class="containermid">
+
+            <div class="containersearch">
+            	<select class="search_select">
+            		<option value = "song">노래제목</option>
+            		<option value = "singer">가수명</option>
+            		<option value = "pl">플레이리스트</option>
+            	</select>
+                <input type="search" class="search" name="search" placeholder="제목, 가수명으로 검색해주세요">
+                <div class="search-results" id="searchResults"></div> <!-- 검색 결과 창 -->
+                <a href=""> <img src="/images/search_img.png" alt="검색하기" class="search_btn"></a>
+
+            </div>
+
+              <table class="mainTable">
+              	<tr>
+              		<th class="icon-container" colspan="4">노래 정보
+              			<div class="icon-btn like" onclick="toggleLike(this)">
+                     		<img th:src="@{images/playList/like_btn.png}" alt="엄지 아이콘">
+                    	</div>
+                    	<div class="icon-btn add" onclick="addToPlaylist(this)">
+                        	<img th:src="@{images/playList/pl_btn.png}" alt="플레이리스트 추가 아이콘">
+                    	</div>
+                    	<div class="icon-btn youtube" onclick="youtube(this)">
+                        	<img th:src="@{images/playList/youtube.png}" alt="유튜브검색 아이콘">
+                    	</div>
+                    </th>
+              		
+              	</tr>
+			    <tr>
+			      <th>노래 제목</th>
+			      <td colspan="3">백엔드가 되고 싶어라</td>
+
+			    </tr>
+			    <tr>
+			      <th>가수</th>
+			      <td colspan="3">프론트앤드</td>
+			    </tr>
+			    <tr>
+			      <th>금영(KY)</th>
+			      <td>51235</td>
+			      <th>태진(TJ)</th>
+			      <td>85132</td>
+			    </tr>
+
+			  </table>
+			  <div class="reply">실시간 반응</div>
+			<div id="reply">
+				<table class = "replyTable"style="border-top: 1px;">
+
+				<tr>
+					<td class="username">의문의프론트</td>
+					<td>노래방에서 부르다 울었습니다...
+						<div class="icon-btn like" onclick="toggleLike(this)">
+                     		<img th:src="@{images/playList/like_btn.png}" alt="엄지 아이콘">
+                    	</div>
+                    	<div class="icon-btn add" onclick="addToPlaylist(this)">
+                        	<img th:src="@{images/playList/edit_btn.png}" alt="수정아이콘">
+                    	</div>
+					</td>
+					</tr>
+					<tr>
+					<td class="username">복면가왕</td>
+					<td>25. 1. 8. 봉은사 코엑스점 98점
+						<div class="icon-btn like" onclick="toggleLike(this)">
+                     		<img th:src="@{images/playList/like_btn.png}" alt="엄지 아이콘">
+                    	</div>
+                    	<div class="icon-btn add" onclick="addToPlaylist(this)">
+                        	<img th:src="@{images/playList/edit_btn.png}" alt="수정아이콘">
+                    	</div>
+                   	</td>
+				</tr>
+				</table>
+				<nav class="page">
+				&laquo;
+				&lsaquo;
+				1 2 3 4 5 6 7 8 9 10
+				&rsaquo;
+				&raquo;
+				</nav>
+				
+				
+			</div>
+            </div>
+            </div>
+            
+</body>
+
+</html>
