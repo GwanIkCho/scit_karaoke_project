@@ -42,7 +42,7 @@ public class SongDTO {
     }
 
 
-    public static SongDTO toEntity(SongEntity songEntity) {
+    public static SongDTO toDTO(SongEntity songEntity) {
         return SongDTO.builder()
                 .id(songEntity.getId())
                 .title(songEntity.getTitle())

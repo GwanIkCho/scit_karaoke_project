@@ -308,6 +308,28 @@
         /* 기본적으로 숨김 */
         z-index: 1000;
     }
+                .ranking-box {
+                height: 60px;
+                overflow: hidden;
+                position: relative;
+            }
+
+            #rank-list {
+                position: absolute;
+                width: 100%;
+                transition: transform 1s ease-in-out;
+            }
+
+            .rank-item {
+                font-size: 2rem;
+                margin: 0;
+                height: 60px;
+                line-height: 60px;
+                color: #333;
+            }
+    
+    
+    
 </style>
 
 <body>
@@ -316,10 +338,12 @@
     <th:block sec:authorize="isAnonymous()">
         <div class="containertop">
             <!-- <a href="#"> <img src="/images/menu_icon.png" alt="메뉴 이미지" class="menu_img" name="menu_img"></a> -->
+ 			
+ 			<!-- 비로그인시 플레이리스트를 누르면 로그인 화면으로 이동 -->         
             <a th:href="@{login}"><img th:src="@{/images/PL.png}" alt="플레이리스트 아이콘"></a>
             <a th:href="@{rank}"><img th:src="@{/images/rank.png}" alt="랭킹 아이콘"></a>
             <a th:href="@{map}"><img th:src="@{/images/map.png}" alt="지도 아이콘"></a>
-            <a th:href="@{login}"> <img th:src="@{/images/login.png}" alt="로그아웃 아이콘"></a>
+            <a th:href="@{login}"> <img th:src="@{/images/login_img.png}" alt="로그인 아이콘"></a>
 
         </div>
         <div class="containermid">
@@ -333,18 +357,19 @@
                 <input type="search" class="search" name="search" placeholder="제목, 가수명으로 검색해주세요">
             </div> -->
             <div class="ranking-title">일일랭킹</div>
-            <div class="ranking-container">
-                <div class="ranking-text">
-                    <p>1위: 아이유 - 너의 의미</p>
-                    <p>2위: BTS - Dynamite</p>
-                    <p>3위: 블랙핑크 - How You Like That</p>
-                    <p>4위: 블랙핑크 - How You Like That</p>
-                    <p>5위: 블랙핑크 - How You Like That</p>
-                    <p>6위: 블랙핑크 - How You Like That</p>
-                    <p>7위: 블랙핑크 - How You Like That</p>
-                    <p>8위: 블랙핑크 - How You Like That</p>
-                    <p>9위: 블랙핑크 - How You Like That</p>
-                    <p>10위: 블랙핑크 - How You Like That</p>
+            <div class="ranking-box">
+                <div id="rank-list">
+					<div class="rank-item">1위: 아이템 A</div>
+                    <div class="rank-item">2위: 아이템 B</div>
+                    <div class="rank-item">3위: 아이템 C</div>
+                    <div class="rank-item">4위: 아이템 D</div>
+                    <div class="rank-item">5위: 아이템 E</div>
+                    <div class="rank-item">6위: 아이템 F</div>
+                    <div class="rank-item">7위: 아이템 G</div>
+                    <div class="rank-item">8위: 아이템 H</div>
+                    <div class="rank-item">9위: 아이템 I</div>
+                    <div class="rank-item">10위: 아이템 J</div>
+                    <div class="rank-item">1위: 아이템 A</div>
                 </div>
             </div>
 
@@ -371,7 +396,7 @@
     <th:block sec:authorize="isAuthenticated()">
         <div class="containertop">
             <!-- <a href="#"> <img src="/images/menu_icon.png" alt="메뉴 이미지" class="menu_img" name="menu_img"></a> -->
-            <a th:href="@{login}"><img th:src="@{/images/PL.png}" alt="플레이리스트 아이콘"></a>
+            <a th:href="@{playList/playlist}"><img th:src="@{/images/PL.png}" alt="플레이리스트 아이콘"></a>
             <a th:href="@{rank}"><img th:src="@{/images/rank.png}" alt="랭킹 아이콘"></a>
             <a th:href="@{map}"><img th:src="@{/images/map.png}" alt="지도 아이콘"></a>
             <a th:href="@{logout}"> <img th:src="@{/images/logout.png}" alt="로그아웃 아이콘"></a>
@@ -387,18 +412,19 @@
                 <input type="search" class="search" name="search" placeholder="제목, 가수명으로 검색해주세요">
             </div> -->
             <div class="ranking-title">일일랭킹</div>
-            <div class="ranking-container">
-                <div class="ranking-text">
-                    <p>1위: 아이유 - 너의 의미</p>
-                    <p>2위: BTS - Dynamite</p>
-                    <p>3위: 블랙핑크 - How You Like That</p>
-                    <p>4위: 블랙핑크 - How You Like That</p>
-                    <p>5위: 블랙핑크 - How You Like That</p>
-                    <p>6위: 블랙핑크 - How You Like That</p>
-                    <p>7위: 블랙핑크 - How You Like That</p>
-                    <p>8위: 블랙핑크 - How You Like That</p>
-                    <p>9위: 블랙핑크 - How You Like That</p>
-                    <p>10위: 블랙핑크 - How You Like That</p>
+            <div class="ranking-box">
+                <div id="rank-list">
+					<div class="rank-item">1위: 아이템 A</div>
+                    <div class="rank-item">2위: 아이템 B</div>
+                    <div class="rank-item">3위: 아이템 C</div>
+                    <div class="rank-item">4위: 아이템 D</div>
+                    <div class="rank-item">5위: 아이템 E</div>
+                    <div class="rank-item">6위: 아이템 F</div>
+                    <div class="rank-item">7위: 아이템 G</div>
+                    <div class="rank-item">8위: 아이템 H</div>
+                    <div class="rank-item">9위: 아이템 I</div>
+                    <div class="rank-item">10위: 아이템 J</div>
+                    <div class="rank-item">1위: 아이템 A</div>
                 </div>
             </div>
 
@@ -454,7 +480,42 @@
         </div>
     </div>
 -->
+        <script>
+            const rankList = document.getElementById("rank-list");
+            const rankItems = document.querySelectorAll(".rank-item");
+            const itemHeight = rankItems[0].offsetHeight;
+            const totalItems = rankItems.length - 1; // 마지막 복제된 1위 제외
+            let currentIndex = 0;
+
+            // 1초마다 슬라이드 실행
+            function slideRank() {
+                currentIndex++;
+                rankList.style.transition = "transform 1s ease-in-out";
+                rankList.style.transform = `translateY(-${
+                    itemHeight * currentIndex
+                }px)`;
+
+                // 마지막 1위 복제된 곳에 도달했을 때
+                if (currentIndex === totalItems) {
+                    setTimeout(() => {
+                        rankList.style.transition = "none"; // 트랜지션 제거
+                        currentIndex = 0; // 처음 위치로 즉시 이동
+                        rankList.style.transform = `translateY(0)`;
+
+                        // 트랜지션 복구
+                        requestAnimationFrame(() => {
+                            rankList.style.transition =
+                                "transform 1s ease-in-out";
+                        });
+                    }, 1000); // 트랜지션 종료 후 1초 뒤
+                }
+            }
+
+            // 1초마다 슬라이드 호출
+            setInterval(slideRank, 1000);
+        </script>
 
 </body>
+
 
 </html>

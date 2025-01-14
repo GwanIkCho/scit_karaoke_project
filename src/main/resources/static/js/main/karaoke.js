@@ -70,5 +70,39 @@ document.addEventListener('DOMContentLoaded', function () {
             modal.style.display = 'none'; // 모달을 숨김
         }
     });
+	
+	const rankList = document.getElementById("rank-list");
+	const rankItems = document.querySelectorAll(".rank-item");
+	const itemHeight = rankItems[0].offsetHeight;
+	const totalItems = rankItems.length - 1; // 마지막 복제된 1위 제외
+	let currentIndex = 0;
+
+	// 1초마다 슬라이드 실행
+	function slideRank() {
+	    currentIndex++;
+	    rankList.style.transition = "transform 1s ease-in-out";
+	    rankList.style.transform = `translateY(-${
+	        itemHeight * currentIndex
+	    }px)`;
+
+	    // 마지막 1위 복제된 곳에 도달했을 때
+	    if (currentIndex === totalItems) {
+	        setTimeout(() => {
+	            rankList.style.transition = "none"; // 트랜지션 제거
+	            currentIndex = 0; // 처음 위치로 즉시 이동
+	            rankList.style.transform = `translateY(0)`;
+
+	            // 트랜지션 복구
+	            requestAnimationFrame(() => {
+	                rankList.style.transition =
+	                    "transform 1s ease-in-out";
+	            });
+	        }, 1000); // 트랜지션 종료 후 1초 뒤
+	    }
+	}
+
+	// 1초마다 슬라이드 호출
+	setInterval(slideRank, 1000);
+
 
 });

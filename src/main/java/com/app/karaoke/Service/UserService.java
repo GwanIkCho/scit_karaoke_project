@@ -1,22 +1,25 @@
 package com.app.karaoke.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.app.karaoke.DTO.UserDTO;
 import com.app.karaoke.Entity.PlayListEntity;
 import com.app.karaoke.Entity.UserEntity;
 import com.app.karaoke.Repository.PlayListRepository;
 import com.app.karaoke.Repository.UserRepository;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
 public class UserService {
-
+	
     @Autowired
     private UserRepository userRepository;
 
@@ -46,16 +49,22 @@ public class UserService {
         return savedUser;
     }
 
-
-
-
-
-
-
-
-
     public UserEntity findByKakaoId(String kakaoId) {
         return userRepository.findByKakaoNumber(kakaoId).orElse(null);
     }
+
+	public List<UserDTO> userAll() {
+		
+			List<UserEntity> temp = userRepository.findAll();
+			
+			List<UserDTO> list = new ArrayList<>();
+			
+			temp.forEach((entity) -> list.add(UserDTO.toDTO(entity)));
+		
+		return list;
+	}
+
+	
+	
 
 }
