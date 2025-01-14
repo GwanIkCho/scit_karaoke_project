@@ -75,7 +75,7 @@
                         <a th:href="@{/admin/adminSong}" class="main-user-warp">
                             <img
                                 class="main-user-image"
-                                src="/staticfiles/images/admin/all/message-img.png"
+                                src="/images/search_img.png"
                                 alt="user-image"
                             />
                             <span class="main-user-text">노래 관리</span>
@@ -86,67 +86,12 @@
                         <a th:href="@{/admin/adminReply}" class="main-user-warp">
                             <img
                                 class="main-user-image"
-                                src="/staticfiles/images/admin/all/comment-img.png"
+                                src="/images/search_img.png"
                                 alt="user-image"
                             />
                             <span class="main-user-text">댓글 관리</span>
                         </a>
                     </li>
-                    <!-- 틴플레이관리 
-                    <li class="main-user-other">
-                        <a href="" class="main-user-warp">
-                            <img
-                                class="main-user-image"
-                                src="/staticfiles/images/admin/all/play-img.png"
-                                alt="user-image"
-                            />
-                            <span class="main-user-text">틴 플레이 관리</span>
-                        </a>
-                    </li>
-                     게시글 관리 
-                    <li class="main-user-other">
-                        <a href="" class="main-user-warp">
-                            <img
-                                class="main-user-image"
-                                src="/staticfiles/images/admin/all/post-img.png"
-                                alt="user-image"
-                            />
-                            <span class="main-user-text">게시글 관리</span>
-                        </a>
-                    </li>
-                     전체모임 관리 
-                    <li class="main-user-other">
-                        <a href="" class="main-user-warp">
-                            <img
-                                class="main-user-image"
-                                src="/staticfiles/images/admin/all/meeting-img.png"
-                                alt="user-image"
-                            />
-                            <span class="main-user-text">전체 모임관리</span>
-                        </a>
-                    </li>
-                     축제관리 
-                    <li class="main-user-other">
-                        <a href="" class="main-user-warp">
-                            <img
-                                class="main-user-image"
-                                src="/staticfiles/images/admin/all/festival-img.png"
-                                alt="user-image"
-                            />
-                            <span class="main-user-text">축제 관리</span>
-                        </a>
-                    </li>
-                     공지사항 관리 
-                    <li class="main-user-other">
-                        <a href="" class="main-user-warp">
-                            <img
-                                class="main-user-image"
-                                src="/staticfiles/images/admin/all/loudspeaker-img.png"
-                                alt="user-image"
-                            />
-                            <span class="main-user-text">공지사항 관리</span>
-                        </a>
-                    </li>-->
                 </ul>
             </nav>
             <!-- 사실상 여기만 수정하면 모든게 끝입니다! -->
@@ -195,11 +140,10 @@
                                     <span class="main-user-total-text"
                                         >전체</span
                                     >
-                                    <span
+                                    <div th:text="${list.size()}"
                                         class="main-user-total-number"
                                         id="total-count"
-                                        >0</span
-                                    >
+                                        ></div>
                                 </div>
                                 <!-- 상태 나타내는 창 -->
                                 <div class="main-bet">
@@ -264,78 +208,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- 전체 밑에 상태, 이름 등등 나타내는곳 -->
-                            <div class="main-user-status">
-                                <!-- 여기에 넣으면 추가할수있습니다(가로넓이 width만 수정)) -->
-                                <div class="main-user-status-name">
-                                    전체선택
-                                </div>
-                                <div class="main-user-status-date">이름</div>
-                                <div class="main-user-status-pay">가입일</div>
-                                <div class="main-user-status-recent">
-                                    개설 모임 수
-                                </div>
-                                <div class="main-user-status-paycount">
-                                    참여중인 모임 수
-                                </div>
-                                <div class="main-user-status-status">
-                                    누적 활동 수
-                                </div>
-                                <div class="main-user-status-stop">상태</div>
-                            </div>
-                        </div>
-                        <!-- 맴버 정보 들어가야함 (지금은 없고 나중에어떤식인지 배워봅시다.) -->
-                        <!-- 일단 하나 만들어봅시다. -->
-                        <li class="main-user-list" data-number="1">
-                            <div class="main-user-list-check">
-                                <input
-                                    type="checkbox"
-                                    class="main-comment-list-checkbox"
-                                />
-                            </div>
-                            <div class="main-user-list-name">조관익</div>
-                            <div class="main-user-list-status">23.02.01</div>
-                            <div class="main-user-list-date">0</div>
-                            <div class="main-user-list-pay">5</div>
-                            <div class="main-user-list-paycount">6</div>
-                            <div data-id="1" class="main-user-list-message">
-                                활동중
-                            </div>
-                        </li>
-                        <li class="main-user-list" data-number="2">
-                            <div class="main-user-list-check">
-                                <input
-                                    type="checkbox"
-                                    class="main-comment-list-checkbox"
-                                />
-                            </div>
-                            <div class="main-user-list-name">박씨</div>
-                            <div class="main-user-list-status">23.01.01</div>
-                            <div class="main-user-list-date">4</div>
-                            <div class="main-user-list-pay">0</div>
-                            <div class="main-user-list-paycount">3</div>
-                            <div data-id="2" class="main-user-list-message">
-                                활동중
-                            </div>
-                        </li>
-                        <li class="main-user-list" data-number="3">
-                            <div class="main-user-list-check">
-                                <input
-                                    type="checkbox"
-                                    class="main-comment-list-checkbox"
-                                />
-                            </div>
-                            <div class="main-user-list-name">김씨</div>
-                            <div class="main-user-list-status">23.05.01</div>
-                            <div class="main-user-list-date">2</div>
-                            <div class="main-user-list-pay">1</div>
-                            <div class="main-user-list-paycount">0</div>
-                            <div data-id="3" class="main-user-list-message">
-                                활동중
-                            </div>
-                        </li>
-
+                            
                         <!-- 유저가 없다면 아래 -->
+                        <th:block th:if="${list.size()} == 0">
                         <div class="main-user-status-list">
                             <!-- 이거말고 차라리 로고로? -->
                             <svg
@@ -372,6 +247,37 @@
                                 유저가 없습니다.
                             </p>
                         </div>
+                        </th:block>
+                        
+                            <!-- 전체 밑에 상태, 이름 등등 나타내는곳 -->
+                            <th:block th:if="${list.size()} != 0">
+                            <div class="main-user-status">
+                                <!-- 여기에 넣으면 추가할수있습니다(가로넓이 width만 수정)) -->
+                                <div class="main-user-status-name">
+                                    전체선택
+                                </div>
+                                <div class="main-user-status-date">이름</div>
+                                <div class="main-user-status-pay">가입일</div>
+                                <div class="main-user-status-stop">상태</div>
+                            </div>
+                        </div>
+                        
+                       
+                        <!-- 맴버 정보  -->
+                        <li th:each="user, status : ${list}" class="main-user-list">
+                            <div class="main-user-list-check">
+                                <input
+                                    type="checkbox"
+                                    class="main-comment-list-checkbox"
+                                />
+                            </div>
+                            <div th:text="${user.userName}" class="main-user-list-name"></div>
+                            <div th:text="${user.createTime}" class="main-user-list-status"></div>
+                            <div th:text="${user.status}" class="main-user-list-message"></div>
+                        </li>
+                        </table>
+						</th:block>                    
+
                         <div class="main-user-bottom-box">
                             <ul class="main-user-bottom-ul">
                                 <!-- 여기에 왼 숫자 오 들어감 -->

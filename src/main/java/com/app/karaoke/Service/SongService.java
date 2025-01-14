@@ -2,9 +2,11 @@ package com.app.karaoke.Service;
 
 import com.app.karaoke.DTO.PagenationDTO;
 import com.app.karaoke.DTO.SongDTO;
+import com.app.karaoke.DTO.UserDTO;
 import com.app.karaoke.Entity.PlayListLikeEntity;
 import com.app.karaoke.Entity.SongEntity;
 import com.app.karaoke.Entity.SongLikeEntity;
+import com.app.karaoke.Entity.UserEntity;
 import com.app.karaoke.Repository.PlayListSongRepository;
 import com.app.karaoke.Repository.SongRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -40,7 +43,7 @@ public class SongService {
 
         List<SongDTO> content = songPage.getContent()
                 .stream()
-                .map(SongDTO::toEntity)
+                .map(SongDTO::toDTO)
                 .collect(Collectors.toList());
 
         return new PagenationDTO<>(
@@ -57,6 +60,18 @@ public class SongService {
         Pageable pageable = PageRequest.of(0, 100);
         return songRepository.findTopSongsWithLikeStatus(pageable);
     }
+
+
+	public List<SongDTO> songAll() {
+		
+		List<SongEntity> temp = songRepository.findAll();
+		
+		List<SongDTO> list = new ArrayList<>();
+		
+		temp.forEach((entity) -> list.add(SongDTO.toDTO(entity)));
+	
+		return list;
+	}
 
 
 
