@@ -95,10 +95,11 @@
         height: 50px;
     }
 
-    .search-results {
+  	.search-results {
         position: absolute;
-        top: 24%;
-        width: 400px;
+            width: 400px;
+        
+        top: 22%;
         background: white;
         border: 1px solid #ccc;
         border-radius: 8px;
@@ -106,8 +107,14 @@
         display: none;
         /* 기본적으로 숨김 */
         z-index: 1000;
+	    white-space: nowrap;
+    	text-overflow: ellipsis;
     }
-    
+    	
+     div.search-results p{
+    	overflow: hidden;
+    	text-overflow: ellipsis;
+    	}
     div.containertop img{
     	width: 40px;
     	height: 40px;
@@ -233,10 +240,10 @@ div.reply {
         <div class="containertop">
         
             <!-- <a href="#"> <img src="/images/menu_icon.png" alt="메뉴 이미지" class="menu_img" name="menu_img"></a> -->
-            <a href="#"><img th:src="@{/images/PL.png}" alt="플레이리스트 아이콘"></a>
-            <a href="#"><img th:src="@{/images/rank.png}" alt="랭킹 아이콘"></a>
-            <a href="#"><img th:src="@{/images/map.png}" alt="지도 아이콘"></a>
-            <a href="#"> <img th:src="@{/images/logout.png}" alt="로그아웃 아이콘"></a>
+            <a th:href="@{playList/playlist}"><img th:src="@{/images/PL.png}" alt="플레이리스트 아이콘"></a>
+            <a th:href="@{rank}"><img th:src="@{/images/rank.png}" alt="랭킹 아이콘"></a>
+            <a th:href="@{map}"><img th:src="@{/images/map.png}" alt="지도 아이콘"></a>
+            <a th:href="@{logout}"> <img th:src="@{/images/logout.png}" alt="로그아웃 아이콘"></a>
         </div>
         <div class="containermid">
 
