@@ -395,10 +395,10 @@
     <div class="container_left">
         <div class="containertop">
             <!-- <a href="#"> <img src="/images/menu_icon.png" alt="메뉴 이미지" class="menu_img" name="menu_img"></a> -->
-            <a href="#">플레이리스트</a>
-            <a href="#">랭킹</a>
-            <a href="#">주변 노래방</a>
-            <a href="#">로그아웃</a>
+            <a th:href="@{playList/playlist}"><img th:src="@{/images/PL.png}" alt="플레이리스트 아이콘"></a>
+            <a th:href="@{rank}"><img th:src="@{/images/rank.png}" alt="랭킹 아이콘"></a>
+            <a th:href="@{map}"><img th:src="@{/images/map.png}" alt="지도 아이콘"></a>
+            <a th:href="@{logout}"> <img th:src="@{/images/logout.png}" alt="로그아웃 아이콘"></a>
         </div>
         <div class="containermid_left">
             <div class="containersearch">

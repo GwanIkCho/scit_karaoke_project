@@ -8,7 +8,8 @@ document.addEventListener('DOMContentLoaded', function () {
         "블랙핑크 - How You Like That",
         "뉴진스 - Ditto",
         "아이유 - 밤편지",
-        "BTS - Butter"
+        "BTS - Butter",
+		"아이유는 누구집아이유 어디까지 나온느 것이여요 이게 뭔데 이렇게까지하는거유"
     ];
 
     // 입력 이벤트 처리
@@ -59,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // 모달 닫기 버튼 클릭 시 모달 닫기
+    /*모달 닫기 버튼 클릭 시 모달 닫기
     closeModal.addEventListener('click', function () {
         modal.style.display = 'none'; // 모달을 숨김
     });
@@ -70,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
             modal.style.display = 'none'; // 모달을 숨김
         }
     });
-	
+	*/
 	const rankList = document.getElementById("rank-list");
 	const rankItems = document.querySelectorAll(".rank-item");
 	const itemHeight = rankItems[0].offsetHeight;
